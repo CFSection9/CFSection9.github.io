@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="CFSection9">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="CFSection9">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="personal blog">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>CEC(Consumer Electronics Control) · undefined</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/favicon.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >CFSection9&#39;s Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">CEC(Consumer Electronics Control)</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>CFSection9's Studio.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            CEC(Consumer Electronics Control)
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Input-Output">Input-Output</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "HDMI">HDMI</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">2.1k</span>阅读时长: <span class="post-count reading-time">9 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2018/10/21</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>CEC是提供给用户的一种用于各种视听设备之间的高级控制功能协议，条件是视听设备必须有HDMI信号接口，消费电子控制，也就是设备之间的通信协议.</p>
+<h2 id="词汇表"><a href="#词汇表" class="headerlink" title="词汇表"></a>词汇表</h2><p>Broadcast Message:送到logcal address 15,所有device都可以收到<br>Clear: 设为empty/undenfined state, physical address则为F.F.F.F,logical address为15<br>Destination: 收cec message的device<br>Follower: 收到cec message且需做response<br>Initiator: 送cec message且等待response<br>Source Device: 正在提供av streaming的device</p>
+<h2 id="CEC基本概念"><a href="#CEC基本概念" class="headerlink" title="CEC基本概念"></a>CEC基本概念</h2><h3 id="CEC命令的结构"><a href="#CEC命令的结构" class="headerlink" title="CEC命令的结构"></a>CEC命令的结构</h3><p>Start + Header block(谁发给谁的)+Opcode(命令是什么)+Operand(带了什么参数)</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Block Name</th>
+<th style="text-align:center">Description</th>
+<th style="text-align:center">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Start</td>
+<td style="text-align:center">Special Start ‘bit’</td>
+<td style="text-align:center">N/A</td>
+</tr>
+<tr>
+<td style="text-align:center">Header (谁发给谁的)</td>
+<td style="text-align:center">Source/Destination Logical address</td>
+<td style="text-align:center">见Logical Addresses</td>
+</tr>
+<tr>
+<td style="text-align:center">opcode (命令是什么)</td>
+<td style="text-align:center">命令的操作码(可选)</td>
+<td style="text-align:center">见Message Descriptions</td>
+</tr>
+<tr>
+<td style="text-align:center">operand (带了什么参数)</td>
+<td style="text-align:center">命令的操作码的参数(可选)</td>
+<td style="text-align:center">见Operand Descriptions</td>
+</tr>
+</tbody>
+</table>
+<h4 id="Start"><a href="#Start" class="headerlink" title="Start"></a>Start</h4><h5 id="Start-Bit-Timing"><a href="#Start-Bit-Timing" class="headerlink" title="Start Bit Timing"></a>Start Bit Timing</h5><h5 id="Data-Timing"><a href="#Data-Timing" class="headerlink" title="Data Timing"></a>Data Timing</h5><p>logical 0<br>logical 1</p>
+<h4 id="Header-Block"><a href="#Header-Block" class="headerlink" title="Header Block"></a>Header Block</h4><h5 id="Header-Block-Details"><a href="#Header-Block-Details" class="headerlink" title="Header Block Details"></a>Header Block Details</h5><table>
+<thead>
+<tr>
+<th style="text-align:center">Header[0]</th>
+<th style="text-align:center">[1]</th>
+<th style="text-align:center">[2]</th>
+<th style="text-align:center">[3]</th>
+<th style="text-align:center">[4]</th>
+<th style="text-align:center">[5]</th>
+<th style="text-align:center">[6]</th>
+<th style="text-align:center">[7]</th>
+<th style="text-align:left">[8]</th>
+<th style="text-align:left">[9]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">-</td>
+</tr>
+<tr>
+<td style="text-align:center">Initiator[0]</td>
+<td style="text-align:center">I[1]</td>
+<td style="text-align:center">I[2]</td>
+<td style="text-align:center">I[3]</td>
+<td style="text-align:center">Destination[0]</td>
+<td style="text-align:center">D[1]</td>
+<td style="text-align:center">D[2]</td>
+<td style="text-align:center">D[3]</td>
+<td style="text-align:left">EOM</td>
+<td style="text-align:left">ACK</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Initiator Logical address:该字段由4 Bit组成,位于Header Block的0-3 Bit,用于标识当前帧的发起方的逻辑地址字段.</li>
+<li>Destination Logical address:该字段由4 Bit组成,位于Header Block的4-7 Bit,用于标识当前帧的目的地的地逻辑地址字段.</li>
+<li>End Of Message(EOM):该字段在每个10bit的block里面都会存在,代表结束位.当EOM为1的时候代表这个Frame结束.而位于Header Block的Bit 8的EOM为1的时候，代表ping某个device,即”polling message”.</li>
+<li>Acknowledge(ACK):该字段位于Header Block的Bit 9,TV利用枚举的方式,向所有LA送 Null cmd, 当某个LA存在时,它会将 ACK bit set to 0, chip有reg去获得这个ACK, 当收到 ACK 为 0 时, 就验证了此 Device 的存在.而如果是broadcast的msg,其他device不要把ACK置0,不然Initiator会认为msg被reject了.</li>
+</ul>
+<p>比如, TV发”Polling Message”给Tuner 2的Header Block Frame如下(ACK的置取决于对Tuner2):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Header[0]</th>
+<th style="text-align:center">[1]</th>
+<th style="text-align:center">[2]</th>
+<th style="text-align:center">[3]</th>
+<th style="text-align:center">[4]</th>
+<th style="text-align:center">[5]</th>
+<th style="text-align:center">[6]</th>
+<th style="text-align:center">[7]</th>
+<th style="text-align:left">[8]</th>
+<th style="text-align:left">[9]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">-</td>
+</tr>
+<tr>
+<td style="text-align:center">Initiator[0]</td>
+<td style="text-align:center">I[1]</td>
+<td style="text-align:center">I[2]</td>
+<td style="text-align:center">I[3]</td>
+<td style="text-align:center">Destination[0]</td>
+<td style="text-align:center">D[1]</td>
+<td style="text-align:center">D[2]</td>
+<td style="text-align:center">D[3]</td>
+<td style="text-align:left">EOM</td>
+<td style="text-align:left">ACK</td>
+</tr>
+</tbody>
+</table>
+<h5 id="Physical-Address-PA"><a href="#Physical-Address-PA" class="headerlink" title="Physical Address(PA)"></a>Physical Address(PA)</h5><p>在一个固定的 CEC 网络中，每一台 CEC device 的唯一标识，它是 device 通过 DDC 读 EDID 得到的，由<strong> 2个byte </strong>组成。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">PhysicallAddress</th>
+<th style="text-align:center">Device</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0.0.0.0(0x00)</td>
+<td style="text-align:center">TV</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>物理地址的分配(Physical Address Allocation)<br>HDMI SPEC提供的伪代码<br>The following algorithm is used to allocate the physical address of each device whenever HPD is<br>de-asserted or upon power-up:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">Disable assertion of HPD to all source devices</span><br><span class="line">If I am CEC root</span><br><span class="line"> Set my_address to 0.0.0.0</span><br><span class="line">Else</span><br><span class="line"> Wait for HPD from sink</span><br><span class="line"> Query sink for my_address of my connection (Section 8.7.4)</span><br><span class="line"> The device shall retain this physical address until HPD is</span><br><span class="line"> removed (or the device is powered off).</span><br><span class="line">End if</span><br><span class="line">If device has connections for source devices then</span><br><span class="line"> Label all possible connections to source devices uniquely starting</span><br><span class="line"> from connection_label = 1 to the number of source input connections</span><br><span class="line"> If device has separate EDIDs for each source connection then</span><br><span class="line"> If my_address ends with 0 then</span><br><span class="line"> Set each source_physical_address to my_address with the</span><br><span class="line"> first 0 being replaced with connection_label.</span><br><span class="line"> Else (i.e. beyond the fifth layer of the tree)</span><br><span class="line"> Set each source_physical_address to F.F.F.F</span><br><span class="line"> End if</span><br><span class="line"> Else</span><br><span class="line"> Set each source_physical_address to my_address</span><br><span class="line"> End if</span><br><span class="line"> Write source_physical_address to HDMI VSDB in EDID for each source</span><br><span class="line"> connection</span><br><span class="line">End if</span><br><span class="line">Allow HPD to be asserted for source devices</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="Logical-Address-LA"><a href="#Logical-Address-LA" class="headerlink" title="Logical Address(LA)"></a>Logical Address(LA)</h5><p>每个设备还有一个唯一的逻辑地址, 它定义了设备类型. 它出现在 CEC Bus 每条 CEC cmd 的 signal line 上, 用以标识每条 cmd 到达的目的地.<br>一个设备通过一个逻辑地址来表示一个功能, 如果一个物理设备包含有超过一个设备类型的功能, 它将给每个功能分配一个逻辑地址. 比如当一个可以录像的DVD设备, LA=4 or 8 那么它录像功能将无法通过CEC来使用, 必须用LA=1 or 2才行.<br>LA由<strong> 4 bit </strong>组成，spec规定只有如下几种 LA 的 device:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">LogicalAddress</th>
+<th style="text-align:center">Device</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">TV</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Recording Device 1</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Recording Device 2</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">Tuner 1</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">Playback Device 1</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">Audio System</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">Tuner 2</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">Tuner 3</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">Playback Device 2</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:center">Recording Device 3</td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:center">Tuner 4</td>
+</tr>
+<tr>
+<td style="text-align:center">11</td>
+<td style="text-align:center">Playback Device 3</td>
+</tr>
+<tr>
+<td style="text-align:center">12</td>
+<td style="text-align:center">Reserved</td>
+</tr>
+<tr>
+<td style="text-align:center">13</td>
+<td style="text-align:center">Reserved</td>
+</tr>
+<tr>
+<td style="text-align:center">14</td>
+<td style="text-align:center">Specific Use</td>
+</tr>
+<tr>
+<td style="text-align:center">15</td>
+<td style="text-align:center">Unregistered(as Initator address) / Broadcast(as Destination address)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>逻辑地址的分配(Logical Address Allocation)<br>只有当设备具有有效的物理地址（即不是F.F.F.F）时，才应该分配逻辑地址,在其他所有时间,设备LA应该设置为15(Unregistered(as Initator address)).<br>只有物理地址为0.0.0.0的设备可以采用LA=0(TV),任何其他PA的TV应采用LA=14(Specific Use)。如果14已经被分配，就设置LA=15.<br>在对于给定设备类型（例如，调谐器1，调谐器2等）可用的多于一个可能的逻辑地址的情况下，将由新连接的设备执行地址分配过程。设备获取该设备类型的第一个分配地址，并向同一个地址（例如Tuner 1→Tuner 1）发送”Polling Message”。如果未确认”Polling Message”，则设备停止过程并保留该地址。<br>如果第一个地址被确认，则设备获取该设备类型的下一个地址，并重复该过程（例如，Tuner 2→Tuner 2）。再次，如果消息未被确认，则设备保留该地址。<br>该过程继续，直到所有可能的“类型特定”地址被检查;如果没有“类型特定”地址可用，则设备应该取得LA=15。请注意，多个物理设备可能共享此地址。<br>设备断开或关闭时可能会丢失其逻辑地址。然而，它可以记住其先前的逻辑地址，使得下次重新连接或打开它时，它可以在其先前逻辑地址开始轮询过程，并在获取未注册地址之前依次尝试每个其他可允许的逻辑地址。<br>例如，如果先前分配了地址Tuner 2的STB被重新连接，则它将在获取Unregistered之前轮询Tuner 2，Tuner 3，Tuner 4和Tuner 1。<br>如果设备在任何时间丢失其物理地址（例如，其被拔出），则其LA=15(Unregistered).</li>
+</ul>
+<p><code>通过LA和PA可以唯一确定一台CEC device的物理空间位置，并实现控制该CEC device</code></p>
+<h4 id="opcode-Block"><a href="#opcode-Block" class="headerlink" title="opcode Block"></a>opcode Block</h4><p>CEC常用的opcode如下表:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Category</th>
+<th style="text-align:left">Opcode</th>
+<th style="text-align:left">value</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">One Touch Play</td>
+<td style="text-align:left"><code>&lt;Active Source&gt;</code> 1</td>
+<td style="text-align:left">0x82</td>
+<td style="text-align:left">被一个新接入的设备所使用，表示它已开始传输流或者用于响应<code>&lt;Resquest Active Source&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Routing Control</td>
+<td style="text-align:left"><code>&lt;Active Source&gt;</code> 2</td>
+<td style="text-align:left">0x82</td>
+<td style="text-align:left">同上？</td>
+</tr>
+<tr>
+<td style="text-align:left">Routing Control</td>
+<td style="text-align:left"><code>&lt;Request Active Source&gt;</code></td>
+<td style="text-align:left">0x85</td>
+<td style="text-align:left">TV告诉设备需要切换source</td>
+</tr>
+<tr>
+<td style="text-align:left">Routing Control</td>
+<td style="text-align:left"><code>&lt;Routing Change&gt;</code></td>
+<td style="text-align:left">0x80</td>
+<td style="text-align:left">从non-HDMI source切到HDMI source或HDMI source之间互切需要发送给设备</td>
+</tr>
+<tr>
+<td style="text-align:left">Routing Control</td>
+<td style="text-align:left"><code>&lt;Routing Information&gt;</code></td>
+<td style="text-align:left">0x81</td>
+<td style="text-align:left">TV询问设备当前活动的route是哪一个</td>
+</tr>
+<tr>
+<td style="text-align:left">Standby</td>
+<td style="text-align:left"><code>&lt;Standby&gt;</code></td>
+<td style="text-align:left">0x36</td>
+<td style="text-align:left">TV告诉设备需要待机</td>
+</tr>
+<tr>
+<td style="text-align:left">System Information</td>
+<td style="text-align:left"><code>&lt;Give Physical Address&gt;</code></td>
+<td style="text-align:left">0x83</td>
+<td style="text-align:left">请求某个设备的物理地址</td>
+</tr>
+<tr>
+<td style="text-align:left">System Information</td>
+<td style="text-align:left"><code>&lt;Polling Message&gt;</code></td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">用于TV发现是否存在设备，类似于ping等其他协议</td>
+</tr>
+<tr>
+<td style="text-align:left">System Information</td>
+<td style="text-align:left"><code>&lt;Report Physical Address&gt;</code></td>
+<td style="text-align:left">0x84</td>
+<td style="text-align:left">用于告诉其他所有其他设备它自己的物理地址</td>
+</tr>
+<tr>
+<td style="text-align:left">Deck Control</td>
+<td style="text-align:left"><code>&lt;Play&gt;</code></td>
+<td style="text-align:left">0x41</td>
+<td style="text-align:left">用于TV控制设备的播放行为</td>
+</tr>
+<tr>
+<td style="text-align:left">Vendor Specific Commands</td>
+<td style="text-align:left"><code>&lt;Device Vendor ID&gt;</code></td>
+<td style="text-align:left">0x87</td>
+<td style="text-align:left">报告本设备的供应商ID</td>
+</tr>
+<tr>
+<td style="text-align:left">Device Menu Control</td>
+<td style="text-align:left"><code>&lt;User Control Pressed&gt;</code> 10</td>
+<td style="text-align:left">0x44</td>
+<td style="text-align:left">用于表示用户按下远程控制按钮或从一个远程控制按钮切换到另一个远程控制按钮，也可以作为一个不直接由用户发起的命令</td>
+</tr>
+<tr>
+<td style="text-align:left">Device Menu Control</td>
+<td style="text-align:left"><code>&lt;User Control Released&gt;</code> 11</td>
+<td style="text-align:left">0x45</td>
+<td style="text-align:left">表示用户松开了一个远程控制按钮(最后一个被User Control Pressed发出的按钮)，也可以用在作为一个不直接由用户发起的命令之后</td>
+</tr>
+<tr>
+<td style="text-align:left">Power Status</td>
+<td style="text-align:left"><code>&lt;Give Device Power Status&gt;</code></td>
+<td style="text-align:left">0x8F</td>
+<td style="text-align:left">设备报告自己的电源状态</td>
+</tr>
+<tr>
+<td style="text-align:left">Power Status</td>
+<td style="text-align:left"><code>&lt;Report Power Status&gt;</code></td>
+<td style="text-align:left">0x90</td>
+<td style="text-align:left">TV请求设备报告电源状态，一般有Standby、On等状态</td>
+</tr>
+<tr>
+<td style="text-align:left">System Audio Control</td>
+<td style="text-align:left"><code>&lt;Give Audio Status&gt;</code></td>
+<td style="text-align:left">0x71</td>
+<td style="text-align:left">TV请求设备报告音量的大小</td>
+</tr>
+<tr>
+<td style="text-align:left">System Audio Control</td>
+<td style="text-align:left"><code>&lt;Give System Audio Mode Status&gt;</code></td>
+<td style="text-align:left">0x7D</td>
+<td style="text-align:left">TV请求设备报告当前声音模式的状态</td>
+</tr>
+<tr>
+<td style="text-align:left">System Audio Control</td>
+<td style="text-align:left"><code>&lt;Report Audio Status&gt;</code></td>
+<td style="text-align:left">0x7A</td>
+<td style="text-align:left">设备报告自己音量大小是多少</td>
+</tr>
+<tr>
+<td style="text-align:left">System Audio Control</td>
+<td style="text-align:left"><code>&lt;System Audio Mode Request&gt;</code></td>
+<td style="text-align:left">0x70</td>
+<td style="text-align:left">TV请求特定物理地址的功放报告:系统声音模式</td>
+</tr>
+<tr>
+<td style="text-align:left">System Audio Control</td>
+<td style="text-align:left"><code>&lt;System Audio Mode Status&gt;</code></td>
+<td style="text-align:left">0x7E</td>
+<td style="text-align:left">活动的功放回应它当前的系统声音模式是什么，有S/PDIF、ARC</td>
+</tr>
+</tbody>
+</table>
+<h2 id="TIF-CEC"><a href="#TIF-CEC" class="headerlink" title="TIF CEC:"></a>TIF CEC:</h2><p>1.LA需要提前设置:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">device manufacturers need to set ro.hdmi.device_type in device.mk</span><br><span class="line">forHdmiControlService to work correctly.</span><br><span class="line">For HDMI sink devices, like panel TVs, set:</span><br><span class="line">device/mstar/muskmelon_tif/device.mk:</span><br><span class="line">PRODUCT_PROPERTY_OVERRIDES += ro.hdmi.device_type=0</span><br></pre></td></tr></table></figure></p>
+
+    </article>
+    <!-- license  -->
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2018/10/21/gdb/" title= "GDB">
+                    <div class="nextTitle">GDB</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/10/21/Translate-Kernel-dump-stack/" title= "Translate Kernel dump_stack()">
+                    <div class="prevTitle">Translate Kernel dump_stack()</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:wangdq1990@gmail.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/CFSection9" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#词汇表"><span class="toc-number">1.</span> <span class="toc-text">词汇表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CEC基本概念"><span class="toc-number">2.</span> <span class="toc-text">CEC基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CEC命令的结构"><span class="toc-number">2.1.</span> <span class="toc-text">CEC命令的结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Start"><span class="toc-number">2.1.1.</span> <span class="toc-text">Start</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Start-Bit-Timing"><span class="toc-number">2.1.1.1.</span> <span class="toc-text">Start Bit Timing</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Data-Timing"><span class="toc-number">2.1.1.2.</span> <span class="toc-text">Data Timing</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Header-Block"><span class="toc-number">2.1.2.</span> <span class="toc-text">Header Block</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Header-Block-Details"><span class="toc-number">2.1.2.1.</span> <span class="toc-text">Header Block Details</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Physical-Address-PA"><span class="toc-number">2.1.2.2.</span> <span class="toc-text">Physical Address(PA)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Logical-Address-LA"><span class="toc-number">2.1.2.3.</span> <span class="toc-text">Logical Address(LA)</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#opcode-Block"><span class="toc-number">2.1.3.</span> <span class="toc-text">opcode Block</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TIF-CEC"><span class="toc-number">3.</span> <span class="toc-text">TIF CEC:</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 8
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/2018/10/21/cec/" >CEC(Consumer Electronics Control)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/2018/10/21/gdb/" >GDB</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/2018/10/21/Translate-Kernel-dump-stack/" >Translate Kernel dump_stack()</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/13</span><a class="archive-post-title" href= "/2018/10/13/Control-GPIO/" >Control GPIO</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/13</span><a class="archive-post-title" href= "/2018/10/13/Print-BackTrace/" >Print BackTrace</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/06</span><a class="archive-post-title" href= "/2018/10/06/Linux-Command/" >Linux Command</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/06</span><a class="archive-post-title" href= "/2018/10/06/hello-world/" >Hello World</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/21</span><a class="archive-post-title" href= "/2018/07/21/Git-Command/" >Git Command</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
+    
+        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="Input-Output"><span class="iconfont-archer">&#xe606;</span>Input-Output</span>
+    
+        <span class="sidebar-tag-name" data-tags="Gist"><span class="iconfont-archer">&#xe606;</span>Gist</span>
+    
+        <span class="sidebar-tag-name" data-tags="Debug"><span class="iconfont-archer">&#xe606;</span>Debug</span>
+    
+        <span class="sidebar-tag-name" data-tags="kernel"><span class="iconfont-archer">&#xe606;</span>kernel</span>
+    
+        <span class="sidebar-tag-name" data-tags="HDMI"><span class="iconfont-archer">&#xe606;</span>HDMI</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "CFSection9"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
