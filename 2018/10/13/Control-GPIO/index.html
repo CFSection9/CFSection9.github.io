@@ -266,9 +266,9 @@ height:50vh;
                 
                     <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Input-Output">Input-Output</a>
-    
         <a class="post-tag" href="javascript:void(0);" data-tags = "Linux">Linux</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Input-Output">Input-Output</a>
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "Gist">Gist</a>
     
@@ -276,7 +276,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">168</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">447</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -406,6 +406,9 @@ height:50vh;
             <main class="main post-page">
     <article class="article-entry">
         <h2 id="Control-GPIO-in-C-code-user-space"><a href="#Control-GPIO-in-C-code-user-space" class="headerlink" title="Control GPIO in C code user space"></a>Control GPIO in C code user space</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PANELVCC_VALUE <span class="meta-string">"/sys/class/gpio/gpio31/value"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PANELVCC_DIRECTION <span class="meta-string">"/sys/class/gpio/gpio31/direction"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> valuefd, directionfd;</span><br><span class="line">    <span class="comment">// Update the direction of the GPIO to be an output</span></span><br><span class="line">    directionfd = open(PANELVCC_DIRECTION, O_RDWR);</span><br><span class="line">    <span class="keyword">if</span> (directionfd &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Cannot open GPIO direction it\n"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    write(directionfd, <span class="string">"out"</span>, <span class="number">4</span>);</span><br><span class="line">    close(directionfd);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"GPIO direction set as output successfully\n"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Get the GPIO value ready to be toggled</span></span><br><span class="line">    valuefd = open(PANELVCC_VALUE, O_RDWR);</span><br><span class="line">    <span class="keyword">if</span> (valuefd &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Cannot open GPIO value\n"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"GPIO value opened, now toggling...\n"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// toggle the GPIO as fast a possible forever, a control c is needed to stop it</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        write(valuefd,<span class="string">"0"</span>, <span class="number">2</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Panel Vcc, set low...\n"</span>);</span><br><span class="line">        sleep(<span class="number">5</span>);</span><br><span class="line">        write(valuefd,<span class="string">"1"</span>, <span class="number">2</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Panel Vcc, set high...\n"</span>);</span><br><span class="line">        sleep(<span class="number">5</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>应用层调用kernel gpio接口需要用到<code>/sys/class/gpio</code>， 其中内容如下:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@xxx:/sys/class/gpio <span class="comment"># ls</span></span><br><span class="line">    <span class="built_in">export</span>     //创建一个gpio节点</span><br><span class="line">    gpio1      //单个GPIO控制节点</span><br><span class="line">    gpio2      //单个GPIO控制节点</span><br><span class="line">    ...</span><br><span class="line">    gpiochip0  //一组GPIO控制节点</span><br><span class="line">    unexport   //移除一个gpio节点</span><br></pre></td></tr></table></figure></p>
+<p>命令行方式:<br>    echo 3 &gt; export    // 在/sys/class/gpio/下生成1个gpio3节点<br>以GPIO3为例:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@xxxx:/sys/class/gpio/gpio3 <span class="comment"># ls -l</span></span><br><span class="line">-rw-r--r-- root     root         4096 1970-01-01 08:10 active_low //0:不反转, 1： 反转(反转时value=1 为低电平)</span><br><span class="line">-rw-r--r-- root     root         4096 1970-01-01 08:10 direction  //gpio 输入/输出， <span class="keyword">in</span> or out</span><br><span class="line">drwxr-xr-x root     root              1970-01-01 08:00 power</span><br><span class="line">lrwxrwxrwx root     root              1970-01-01 08:10 subsystem -&gt; ../../../../class/gpio</span><br><span class="line">-rw-r--r-- root     root         4096 1970-01-01 08:00 uevent</span><br><span class="line">-rw-r--r-- root     root         4096 1970-01-01 08:10 value  //gpio 电平状态， 0 or 1</span><br></pre></td></tr></table></figure></p>
+<p>通用的还有edge设置中断触发方式，设置为in时才有。<br>       none表示引脚为输入，不是中断引脚<br>       rising表示引脚为中断输入，上升沿触发<br>       falling表示引脚为中断输入，下降沿触发<br>       both表示引脚为中断输入，边沿触发</p>
 
     </article>
     <!-- license  -->
@@ -671,9 +674,26 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 10
+        Total : 13
         </div>
         <!-- search  -->
         
@@ -683,6 +703,30 @@ top:50vh;
     
     
     
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/08</span><a class="archive-post-title" href= "/2019/04/08/Rootlees-Root/" >Rootless Root</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/24</span><a class="archive-post-title" href= "/2019/03/24/Audio-Terminology/" >Audio Terminology</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/21</span><a class="archive-post-title" href= "/2019/03/21/Thread/" >Thread</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
@@ -704,12 +748,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/2018/10/21/gdb/" >GDB</a>
+            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/2018/10/21/cec/" >CEC(Consumer Electronics Control)</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/2018/10/21/cec/" >CEC(Consumer Electronics Control)</a>
+            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/2018/10/21/gdb/" >GDB</a>
         </li>
     
     
@@ -742,25 +786,39 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
-    
-        <span class="sidebar-tag-name" data-tags="Input-Output"><span class="iconfont-archer">&#xe606;</span>Input-Output</span>
-    
-        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
-    
-        <span class="sidebar-tag-name" data-tags="Gist"><span class="iconfont-archer">&#xe606;</span>Gist</span>
+        <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
     
         <span class="sidebar-tag-name" data-tags="Economics"><span class="iconfont-archer">&#xe606;</span>Economics</span>
     
-        <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
+        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="Input-Output"><span class="iconfont-archer">&#xe606;</span>Input-Output</span>
+    
+        <span class="sidebar-tag-name" data-tags="Gist"><span class="iconfont-archer">&#xe606;</span>Gist</span>
+    
+        <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
+    
+        <span class="sidebar-tag-name" data-tags="linux"><span class="iconfont-archer">&#xe606;</span>linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="Audio"><span class="iconfont-archer">&#xe606;</span>Audio</span>
     
         <span class="sidebar-tag-name" data-tags="Debug"><span class="iconfont-archer">&#xe606;</span>Debug</span>
+    
+        <span class="sidebar-tag-name" data-tags="android"><span class="iconfont-archer">&#xe606;</span>android</span>
+    
+        <span class="sidebar-tag-name" data-tags="OS"><span class="iconfont-archer">&#xe606;</span>OS</span>
+    
+        <span class="sidebar-tag-name" data-tags="HDMI"><span class="iconfont-archer">&#xe606;</span>HDMI</span>
     
         <span class="sidebar-tag-name" data-tags="kernel"><span class="iconfont-archer">&#xe606;</span>kernel</span>
     
         <span class="sidebar-tag-name" data-tags="PowerManager"><span class="iconfont-archer">&#xe606;</span>PowerManager</span>
     
-        <span class="sidebar-tag-name" data-tags="HDMI"><span class="iconfont-archer">&#xe606;</span>HDMI</span>
+        <span class="sidebar-tag-name" data-tags="unix"><span class="iconfont-archer">&#xe606;</span>unix</span>
+    
+        <span class="sidebar-tag-name" data-tags="Unix"><span class="iconfont-archer">&#xe606;</span>Unix</span>
+    
+        <span class="sidebar-tag-name" data-tags="Zen"><span class="iconfont-archer">&#xe606;</span>Zen</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>

@@ -22,7 +22,7 @@
     <meta name="description" content="personal blog">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title></title>
+    <title>Audio Terminology · undefined</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -203,12 +203,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >CFSection9&#39;s Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Audio Terminology</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>CFSection9's Studio.</a>
 </header>
@@ -220,24 +231,76 @@
 
 
 
+
+height:50vh;
 ">
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            Audio Terminology
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "linux">linux</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Audio">Audio</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">782</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/03/24</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -338,39 +401,62 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/07/21/Git-Command/" >
-            
-                <span>Git Command</span>
-        </a>
-        <div class="abstract-content">
-            git config/push/commit/log/diff etc...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/07/21</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Git">Git</a>
-    
-</div>
-            
-        </div>
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="PCM"><a href="#PCM" class="headerlink" title="PCM"></a>PCM</h2><p>脉冲编码调制(Pulse Code Modulation)。最常见的低级别数字音频编码形式。以有规律的间隔对音频信号取样（称为采样率），然后根据位深对特定范围内的离散值进行量化。例如，对于 16 位 PCM，样本值是介于 -32768 到 +32767 之间的整数值。在ALSA API中把它用作“音频”的简写。</p>
+<h2 id="sample"><a href="#sample" class="headerlink" title="sample"></a>sample</h2><p>代表某个时间点上一个声道的音频值的数字。</p>
+<h2 id="sample-rate-or-frame-rate"><a href="#sample-rate-or-frame-rate" class="headerlink" title="sample rate or frame rate"></a>sample rate or frame rate</h2><p>每秒帧数。“帧率”这一用法更为准确，但业内习惯使用“采样率”来表示帧率。</p>
+<h2 id="channel"><a href="#channel" class="headerlink" title="channel"></a>channel</h2><p>单个音频信息流，通常与一个录音位置或播放位置相对应。单声道可以用mono表示，双声道可以用stereo表示。</p>
+<h2 id="frame"><a href="#frame" class="headerlink" title="frame"></a>frame</h2><p>某个时间点上的样本集，每一个frame都由若干个channel的一个sample组成。比如立体声在每个frame里面包含2个samples。</p>
+<h2 id="gain"><a href="#gain" class="headerlink" title="gain"></a>gain</h2><p>大于或等于 1.0 的乘法因数，应用于音频信号以提高信号电平。与“attenuation”相反。</p>
+<h2 id="Hz"><a href="#Hz" class="headerlink" title="Hz"></a>Hz</h2><p>采样率或帧率的单位。</p>
+<h2 id="latency"><a href="#latency" class="headerlink" title="latency"></a>latency</h2><p>信号通过系统时的延迟时间。</p>
+<h2 id="xrun"><a href="#xrun" class="headerlink" title="xrun"></a>xrun</h2><p>我们使用xrun来代表如下两种情况:</p>
+<h3 id="overrun"><a href="#overrun" class="headerlink" title="overrun"></a>overrun</h3><p>未能在一定的时间内接受提供的数据而导致的听得到的短时脉冲波干扰。通常playback设备有可能遇到这种情况，底层需要新数据进来，而上层却没有及时送过来，所以这时底层只能使用在硬件缓存里面的旧音频数据，这时就会听见重复的声音，好像卡住李一样。与“underrun”相反。</p>
+<h3 id="underrun"><a href="#underrun" class="headerlink" title="underrun"></a>underrun</h3><p>未能在一定的时间内提供所需数据而导致的听得到的短时脉冲波干扰。通常是capture设置有可能遇到这种情况，上层还没有及时处理完底层提供的当前的数据，底层就又发新数据过来了，所以这时底层只能覆盖新数据到迎接缓存里，这时就会听到声音突变。与“overrun”相反。</p>
+<h2 id="panning"><a href="#panning" class="headerlink" title="panning"></a>panning</h2><p>将一个信号移至立体声或多声道音场中的相应位置。</p>
+<h2 id="ramp"><a href="#ramp" class="headerlink" title="ramp"></a>ramp</h2><p>逐渐提高或降低特定音频参数（如音量或某种音效的强度）的级别。音量斜坡一般用于暂停和继续播放音乐，以免出现听得到的生硬过渡。</p>
+<h2 id="downmixing"><a href="#downmixing" class="headerlink" title="downmixing"></a>downmixing</h2><p>减少声道的数量，例如从立体声到单声道或从5.1到立体声。缩混通过减少声道、混合声道或更高级的信号处理技术来实现。如果简单地混合声道而不进行衰减或加以限制，则可能会出现溢出或削波的情况。与“upmixing”相反。</p>
+<h2 id="upmixing"><a href="#upmixing" class="headerlink" title="upmixing"></a>upmixing</h2><p>增加声道的数量，例如从单声道到立体声或从立体声到环绕声。扩混通过复制、平移或更高级的信号处理技术来实现。与“downmixing”相反。</p>
+<h2 id="mute"><a href="#mute" class="headerlink" title="mute"></a>mute</h2><p>暂时强制将音量降为 0；独立于通常使用的音量控件。</p>
+<h2 id="volume"><a href="#volume" class="headerlink" title="volume"></a>volume</h2><p>响度，音频信号的主观强度。</p>
+
     </article>
+    <!-- license  -->
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2019/04/08/Rootlees-Root/" title= "Rootless Root">
+                    <div class="nextTitle">Rootless Root</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2019/03/21/Thread/" title= "Thread">
+                    <div class="prevTitle">Thread</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -448,6 +534,24 @@
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PCM"><span class="toc-number">1.</span> <span class="toc-text">PCM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sample"><span class="toc-number">2.</span> <span class="toc-text">sample</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sample-rate-or-frame-rate"><span class="toc-number">3.</span> <span class="toc-text">sample rate or frame rate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#channel"><span class="toc-number">4.</span> <span class="toc-text">channel</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#frame"><span class="toc-number">5.</span> <span class="toc-text">frame</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gain"><span class="toc-number">6.</span> <span class="toc-text">gain</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hz"><span class="toc-number">7.</span> <span class="toc-text">Hz</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#latency"><span class="toc-number">8.</span> <span class="toc-text">latency</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xrun"><span class="toc-number">9.</span> <span class="toc-text">xrun</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#overrun"><span class="toc-number">9.1.</span> <span class="toc-text">overrun</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#underrun"><span class="toc-number">9.2.</span> <span class="toc-text">underrun</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#panning"><span class="toc-number">10.</span> <span class="toc-text">panning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ramp"><span class="toc-number">11.</span> <span class="toc-text">ramp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#downmixing"><span class="toc-number">12.</span> <span class="toc-text">downmixing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#upmixing"><span class="toc-number">13.</span> <span class="toc-text">upmixing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mute"><span class="toc-number">14.</span> <span class="toc-text">mute</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#volume"><span class="toc-number">15.</span> <span class="toc-text">volume</span></a></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -792,6 +896,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>

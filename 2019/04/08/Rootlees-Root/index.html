@@ -22,7 +22,7 @@
     <meta name="description" content="personal blog">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title></title>
+    <title>Rootless Root · undefined</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -203,12 +203,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >CFSection9&#39;s Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Rootless Root</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>CFSection9's Studio.</a>
 </header>
@@ -220,24 +231,76 @@
 
 
 
+
+height:50vh;
 ">
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            Rootless Root
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "OS">OS</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Zen">Zen</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">2.6k</span>阅读时长: <span class="post-count reading-time">8 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/04/08</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -338,39 +401,138 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/07/21/Git-Command/" >
-            
-                <span>Git Command</span>
-        </a>
-        <div class="abstract-content">
-            git config/push/commit/log/diff etc...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/07/21</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Git">Git</a>
-    
-</div>
-            
-        </div>
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>中国宋朝时，由慧开禅师于绍定元年（1228年）整理过一本禅宗经典公案集叫《无门关》，关就是门的意思，所以翻译过来就是《无门的门》。一千多年后西方的某位程序员写出了《Rootless Root:The Unix Koans of Master Foo》它是《Unix编程艺术》一书的附录，原作者不详。两本书的标题都是一语道破了佛教的核心理念：空即是色，色即是空。而禅宗所推崇的”直指人心，见性成佛“，也在这两本书中淋漓极致的表现了出来，每次读都能有不同的收获：</p>
+<h1 id="无名师与万行码"><a href="#无名师与万行码" class="headerlink" title="无名师与万行码"></a>无名师与万行码</h1><p>无名师曾对来访的程序员说：“Unix传统上认为，一行shell脚本胜过万行C程序。”</p>
+<p>这个程序员自以为对C极其精通，说：“这不可能。UNIX内核正是用C实现的。”</p>
+<p>无名师回道：“确是如此。不过，UNIX传统上认为，一行shell脚本胜过万行C程序。“</p>
+<p>程序员颇为沮丧：”但是在C中我们可领会到尊者Ritchie的智慧。我们与操作系统和机器合而为一，可以获取无与伦比的性能。”</p>
+<p>无名师回道：“诚如你言。不过，Unix传统上认为，一行shell脚本胜过万行C程序。”</p>
+<p>程序员冷笑着想愤然离去。无名师向学生Nubi颔首示意，Nubi在黑板上写下一行shell脚本，问道：“尊敬的程序员，看看这行管道，用纯C实现，是不是要一万行C代码？”</p>
+<p>程序员沉吟念诵。最终他承认如此。</p>
+<p>“你需要多长时间来实现和调试那个C程序？”Nubi问道。</p>
+<p>“很长”，来访的程序员承认。“但傻子才会干这个而不去完成更有价值的任务。”</p>
+<p>“那么谁更了解Unix传统？”无名师问道。“是写一万行代码的，还是看到任务的无谓而不去编码的？”</p>
+<p>听到此，程序员眼中一亮。</p>
+<h1 id="无名师与脚本狂"><a href="#无名师与脚本狂" class="headerlink" title="无名师与脚本狂"></a>无名师与脚本狂</h1><p>无名师和学生吃早饭时，从黑客大陆来了个陌生访客。</p>
+<p>“Ihear y00 are very l33t,”他说。“Pl33z teach m3 all y00 know”。（我听说你很牛，请把你会的都教给我。）</p>
+<p>无名师的学生面面相觑，都没听懂这类粗鄙言语。无名师微笑道：“你想弄懂Unix？”</p>
+<p>“I want to b3 a wizard hax0r”，陌生人回答，“and 0wn ever3one’s b0xen。”（我想当个顶尖黑客，能掌握所有人的机器。）</p>
+<p>“我不教这个”，无名师答道。</p>
+<p>陌生人很激动。“D00d， y00 r nothing but a p0ser。”，他说。“If y00 n00 anything, y00 wud t33ch m3。”（哥们儿，敢情你没真本事啊，你要知道点儿东西就教给我了。）</p>
+<p>“有条路，”无名师说，“可以将你带入真知。”他在纸上写了个IP地址。“黑掉这台机器，这对你来说应该不费什么力气，它的管理员不称职。回来后告诉我你发现了什么。“</p>
+<p>陌生人鞠了一躬就离开了。无名师把他的早饭吃完。</p>
+<p>几天过去了，几个月过去了。没人再想起陌生人。</p>
+<p>数年过去了，黑客大陆来的陌生人回来了。</p>
+<p>”你混蛋！“他说，”我黑掉了那台机器，你说的没错，太容易了。但是我被FBI抓起来扔进监狱了。“</p>
+<p>”好“，无名师说，”你可以继续下一课了。“他在另一张纸上写了个IP地址交给陌生人。</p>
+<p>”你疯了？“陌生人喊道。”经过这事，我再也不黑别人的机器了。”</p>
+<p>无名师脸现微笑。“这里就是”，他说，“真知的开始。”</p>
+<p>听到此，陌生人眼中一亮。</p>
+<h1 id="无名师的双路论"><a href="#无名师的双路论" class="headerlink" title="无名师的双路论"></a>无名师的双路论</h1><p>无名师如是教导学生：</p>
+<p>“达摩教义有条准线，这在尊者McIlroy的符咒“做一件事并做好”中得到体现。它强调软件应当具有简单一致的行为，这符合Unix惯例，人和其它程序便都很容易想象其心理模型。</p>
+<p>“但达摩教义还有另一条准线，体现在尊者Thompson的符咒“有怀疑，用穷举”中，很多经文都教导我们现在得到的90%，比等不来的100%更有价值。它强调实现的健壮性和简单性。</p>
+<p>“现在告诉我：什么程序符合Unix传统？“</p>
+<p>想了一会儿后，Nubi沉思道：</p>
+<p>“老师，这些教义有冲突。”</p>
+<p>“简单的实现往往对边缘情况有欠考虑，比如资源耗竭、无法关闭竞争窗口以及在未完成事务中超时等等。”</p>
+<p>“发生边缘情况时，软件行为往往不规律、难以猜测。这当然不是Unix传统。“</p>
+<p>无名师颔首同意。</p>
+<p>“另一方面，大家都知道精巧的程序很脆弱。更进一步说，每个对边缘情况的修正往往牵扯到程序的核心算法，还牵扯处理其它边缘情况的代码。”</p>
+<p>“于是，对边缘情况防患于未然、确保描述的简单性，反而会使得代码过分复杂、bug成堆、根本无法发售。这当然不是Unix传统。”</p>
+<p>无名师颔首同意。</p>
+<p>“那么，什么是正确的达摩道？”Nubi问道。</p>
+<p>无名师说：</p>
+<p>“当鹰飞翔时，它忘记爪子与地面相触？当虎捕食时，它忘记腾空的一刻？VAX只重三斤！”</p>
+<p>听到此，Nubi眼中一亮。</p>
+<h1 id="无名师与方法论"><a href="#无名师与方法论" class="headerlink" title="无名师与方法论"></a>无名师与方法论</h1><p>无名师和学生Nubi在圣地行走，无名师习惯在晚间为城市和乡村的Unix新门徒布道。</p>
+<p>一次，聆听者中混入了一名方法论者。</p>
+<p>“优化程序时不对热点进行反复衡量，就像渔夫把网撒入空湖中。”无名师说。</p>
+<p>“那么，”方法论者说，“管理资源时不持续地衡量你的产能，不也像渔夫将网撒入空湖中么？”</p>
+<p>“我一次碰到一个渔夫时，他正将网撒入船下的湖中，”无名师说，“他摸了好一会儿船底，像在寻找他的船。”</p>
+<p>“但是，”方法论者说，“如果他把网撒入湖中，为什么还要找船呢？”</p>
+<p>“因为他不会游泳。”无名师答道。</p>
+<p>听到此，方法论者眼中一亮。</p>
+<h1 id="无名师的GUI论"><a href="#无名师的GUI论" class="headerlink" title="无名师的GUI论"></a>无名师的GUI论</h1><p>一晚，无名师和Nubi参加一个程序员的探讨会。有个程序员问Nubi和他的老师来自哪所学校。当得知他们是Unix大道的追随者时，程序员颇为不屑。</p>
+<p>“Unix命令行工具太粗糙太落后”，他讥讽道。“现代的、设计得当的操作系统可以在图形用户界面中做任何事情。”</p>
+<p>无名师一言不发，只是指着月亮。旁边的一条狗对着他的手狂吠。</p>
+<p>“我不明白。”程序员说。</p>
+<p>无名师依然缄默，指着一幅佛祖像，然后又指着一扇窗。</p>
+<p>“你想说什么？”程序员问。</p>
+<p>无名师指着程序员的头，接着指着一块大石。</p>
+<p>“请把话说清楚！”程序员要求道。</p>
+<p>无名师深深蹙眉，轻拍程序员的鼻子两下，把他扔到旁边的垃圾箱中。</p>
+<p>程序员试图从垃圾堆挣扎出来之时，那条狗跑过来在他身上便溺。</p>
+<p>此时，程序员眼中一亮。</p>
+<h1 id="无名师与Unix狂"><a href="#无名师与Unix狂" class="headerlink" title="无名师与Unix狂"></a>无名师与Unix狂</h1><p>一个Unix狂热者听说无名师掌握Unix大道真知，便跑来求教。无名师对他说：</p>
+<p>“当尊者Thompson发明Unix时，他并不理解它。随后他理解了，受益了，不再发明了。“</p>
+<p>“当尊者McIlroy发明管道时，他只知道它将传递软件，并不知道它能传递思想。”</p>
+<p>“当尊者Ritchie发明C时，他将程序员放到缓冲溢出、堆损坏和烂指针bug的地狱中惩罚。”</p>
+<p>“说实话，这些尊者又瞎又蠢！”</p>
+<p>狂热者对无名师的用词极为愤怒。</p>
+<p>“这些智者”，他抗议道，“给了我们Unix的大道。我们嘲笑他们，就是混淆是非，比转世为牲畜和MCSE还不如。”</p>
+<p>“你的代码全无污点和缺陷？”无名师问。</p>
+<p>“不，”狂热者承认，“没人不犯猎。”</p>
+<p>“这些尊者之智，”无名师说，“就是了解自身之愚。”</p>
+<p>听到此，狂热者眼中一亮</p>
+<h1 id="无名师的Unix传统论"><a href="#无名师的Unix传统论" class="headerlink" title="无名师的Unix传统论"></a>无名师的Unix传统论</h1><p>一学生对无名师说：“我们听说SCO公司把握着纯正的Unix。”</p>
+<p>无名师颔首。</p>
+<p>学生继续说，“我们还听说OpenGroup公司也把握着纯正的Unix。”</p>
+<p>无名师颔首。</p>
+<p>“这怎么可能？”学生问。</p>
+<p>无名师答道：</p>
+<p>“SCO确实把握着Unix源码，但是Unix的源码不是Unix。OpenGroup确实把握着Unix的名称，但Unix的名称不是Unix。”</p>
+<p>“那么，什么是Unix传统？”学生问。</p>
+<p>无名师答道：</p>
+<p>“非源码。非名称。非思想。非实物。恒变。不变。”</p>
+<p>“Unix传统是简单和空。正是简单，正是空，才使得它更强胜飓风。”</p>
+<p>“以自然法则前行，在程序员手中，吸纳各种优良设计。与之竞争的软件最终必与之想像；空，空，真空，虚无，万岁！”</p>
+<p>听到此，学生眼中一亮。</p>
+<h1 id="无名师与最终用户"><a href="#无名师与最终用户" class="headerlink" title="无名师与最终用户"></a>无名师与最终用户</h1><p>无名师又一次布道时，一个最终用户听说了他的智慧，跑来求教。</p>
+<p>他对无名师三鞠躬。“我欲学习Unix大道，”他说，“但是弄不懂命令行。”</p>
+<p>一个旁观的新门徒开始嘲讽最终用户，说他脑子一锅粥，说只有经训练者、有智慧者才配使用Unix。</p>
+<p>无名师抚手不语，命这个嘲笑最终用户的新门徒前坐，坐到最终用户身边。</p>
+<p>“告诉我，”他对新门徒说，“你写过什么代码，有过什么突出设计。”</p>
+<p>新门徒嗫嚅了两句，然后沉默了。</p>
+<p>无名师转向最终用户。“告诉我”，他问，“为何你要寻求大道？”</p>
+<p>“我用的软件并不能令我满意”，最终用户答，“既不稳定，也不美观。听说Unix之道尽管艰难，但超越一切，我愿抛去一切诱饵和虚像。”</p>
+<p>“那么，”无名师问，“你为何想尽办法让软件帮你做事？”</p>
+<p>“我是个建筑工”，最终用户答道，“这座城里的很多房屋都出自我手。”</p>
+<p>无名师转向新门徒。“家猫也能欺负老虎”，无名师说，“但是猫叫永远比不过虎吼。”</p>
+<p>听到此，新门徒眼中一亮。</p>
+
     </article>
+    <!-- license  -->
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2019/03/24/Audio-Terminology/" title= "Audio Terminology">
+                    <div class="prevTitle">Audio Terminology</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -448,6 +610,24 @@
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#无名师与万行码"><span class="toc-number">1.</span> <span class="toc-text">无名师与万行码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#无名师与脚本狂"><span class="toc-number">2.</span> <span class="toc-text">无名师与脚本狂</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#无名师的双路论"><span class="toc-number">3.</span> <span class="toc-text">无名师的双路论</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#无名师与方法论"><span class="toc-number">4.</span> <span class="toc-text">无名师与方法论</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#无名师的GUI论"><span class="toc-number">5.</span> <span class="toc-text">无名师的GUI论</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#无名师与Unix狂"><span class="toc-number">6.</span> <span class="toc-text">无名师与Unix狂</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#无名师的Unix传统论"><span class="toc-number">7.</span> <span class="toc-text">无名师的Unix传统论</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#无名师与最终用户"><span class="toc-number">8.</span> <span class="toc-text">无名师与最终用户</span></a></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -792,6 +972,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
