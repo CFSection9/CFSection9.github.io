@@ -22,7 +22,7 @@
     <meta name="description" content="personal blog">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Audio Terminology · undefined</title>
+    <title>Audio常用术语的基本概念 · undefined</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/" >CFSection9&#39;s Studio.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Audio Terminology</a>
+                <a href="#" class="post-name">Audio常用术语的基本概念</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Audio Terminology
+            Audio常用术语的基本概念
             <!-- 404 -->
             
         </h1>
@@ -274,12 +274,12 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">782</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.8k</span>阅读时长: <span class="post-count reading-time">6 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/03/24</span>
+                    <span class="post-intro-time">2020/03/22</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -404,15 +404,17 @@ height:50vh;
             <main class="main post-page">
     <article class="article-entry">
         <h2 id="PCM"><a href="#PCM" class="headerlink" title="PCM"></a>PCM</h2><p>脉冲编码调制(Pulse Code Modulation)。最常见的低级别数字音频编码形式。以有规律的间隔对音频信号取样（称为采样率），然后根据位深对特定范围内的离散值进行量化。例如，对于 16 位 PCM，样本值是介于 -32768 到 +32767 之间的整数值。在ALSA API中把它用作“音频”的简写。</p>
-<h2 id="sample"><a href="#sample" class="headerlink" title="sample"></a>sample</h2><p>代表某个时间点上一个声道的音频值的数字。</p>
-<h2 id="sample-rate-or-frame-rate"><a href="#sample-rate-or-frame-rate" class="headerlink" title="sample rate or frame rate"></a>sample rate or frame rate</h2><p>每秒帧数。“帧率”这一用法更为准确，但业内习惯使用“采样率”来表示帧率。</p>
 <h2 id="channel"><a href="#channel" class="headerlink" title="channel"></a>channel</h2><p>单个音频信息流，通常与一个录音位置或播放位置相对应。单声道可以用mono表示，双声道可以用stereo表示。</p>
-<h2 id="frame"><a href="#frame" class="headerlink" title="frame"></a>frame</h2><p>某个时间点上的样本集，每一个frame都由若干个channel的一个sample组成。比如立体声在每个frame里面包含2个samples。</p>
+<h2 id="sample"><a href="#sample" class="headerlink" title="sample"></a>sample</h2><p>代表某个时间点上一个声道的音频值的数字。一个sample是一个单一值，描述单个通道上单个时间点上音频信号的幅度。</p>
+<h2 id="sample-rate-or-frame-rate"><a href="#sample-rate-or-frame-rate" class="headerlink" title="sample_rate or frame_rate"></a>sample_rate or frame_rate</h2><p>每秒帧数。“帧率”这一用法更为准确，但业内习惯使用“采样率”来表示帧率。frame rate频与sample rate相同。也就是说，假设立体声音频的采样率为44100Hz。那么每个通道每秒将具有44,100个sample。但是每秒还将有44,100帧，因此两个通道的总密度将为每秒88,200个sample。常见的sample_rate有:8KHz/16KHz/32KHz/44.1KHz/48KHz.</p>
+<h2 id="frame"><a href="#frame" class="headerlink" title="frame"></a>frame</h2><p>某个时间点上的样本集，每一个frame都由若干个channel的一个sample组成。比如单声道在每个frame里就包含1个sample，而立体声在每个frame里面包含2个samples。<br>当我们谈论使用数字音频时，我们经常要谈论代表单个时间点上所有channels的数据。这是sample的集合，每个channel一个，通常称为“frame”。当我们以frame为单位谈论时间的流逝时，它大致相当于人们以sample为单位进行测量的时间，但更为准确；更重要的是，当我们谈论某个时间点代表所有channels所需的数据量时，这是唯一有意义的单位。几乎每个ALSA Audio API函数都使用frame作为其数据量的度量单位。</p>
 <h2 id="gain"><a href="#gain" class="headerlink" title="gain"></a>gain</h2><p>大于或等于 1.0 的乘法因数，应用于音频信号以提高信号电平。与“attenuation”相反。</p>
 <h2 id="Hz"><a href="#Hz" class="headerlink" title="Hz"></a>Hz</h2><p>采样率或帧率的单位。</p>
 <h2 id="latency"><a href="#latency" class="headerlink" title="latency"></a>latency</h2><p>信号通过系统时的延迟时间。</p>
-<h2 id="xrun"><a href="#xrun" class="headerlink" title="xrun"></a>xrun</h2><p>我们使用xrun来代表如下两种情况:</p>
-<h3 id="overrun"><a href="#overrun" class="headerlink" title="overrun"></a>overrun</h3><p>未能在一定的时间内接受提供的数据而导致的听得到的短时脉冲波干扰。通常playback设备有可能遇到这种情况，底层需要新数据进来，而上层却没有及时送过来，所以这时底层只能使用在硬件缓存里面的旧音频数据，这时就会听见重复的声音，好像卡住李一样。与“underrun”相反。</p>
+<h2 id="capture"><a href="#capture" class="headerlink" title="capture"></a>capture</h2><p>从外部接受数据，比如外部输入MIC的数据，就需要用capture来接受数据。</p>
+<h2 id="playback"><a href="#playback" class="headerlink" title="playback"></a>playback</h2><p>将数据传递到外界，以便可以听到它。比如向喇叭播放声音，就需要playback。</p>
+<h2 id="xrun"><a href="#xrun" class="headerlink" title="xrun"></a>xrun</h2><p>音频接口开始运行后，它就会持续的playback或者capture数据，直到被告之停止。它将生成供计算机使用的数据，或者将数据从计算机发送到外界。由于各种原因，您的程序可能会跟不上它。所以我们使用xrun来代表如下两种情况:</p>
+<h3 id="overrun"><a href="#overrun" class="headerlink" title="overrun"></a>overrun</h3><p>未能在一定的时间内接受提供的数据而导致的听得到的短时脉冲波干扰。通常playback设备有可能遇到这种情况，底层需要新数据进来，而上层却没有及时送过来，所以这时底层只能使用在硬件缓存里面的旧音频数据，这时就会听见重复的声音，好像卡住一样。与“underrun”相反。</p>
 <h3 id="underrun"><a href="#underrun" class="headerlink" title="underrun"></a>underrun</h3><p>未能在一定的时间内提供所需数据而导致的听得到的短时脉冲波干扰。通常是capture设置有可能遇到这种情况，上层还没有及时处理完底层提供的当前的数据，底层就又发新数据过来了，所以这时底层只能覆盖新数据到迎接缓存里，这时就会听到声音突变。与“overrun”相反。</p>
 <h2 id="panning"><a href="#panning" class="headerlink" title="panning"></a>panning</h2><p>将一个信号移至立体声或多声道音场中的相应位置。</p>
 <h2 id="ramp"><a href="#ramp" class="headerlink" title="ramp"></a>ramp</h2><p>逐渐提高或降低特定音频参数（如音量或某种音效的强度）的级别。音量斜坡一般用于暂停和继续播放音乐，以免出现听得到的生硬过渡。</p>
@@ -420,6 +422,16 @@ height:50vh;
 <h2 id="upmixing"><a href="#upmixing" class="headerlink" title="upmixing"></a>upmixing</h2><p>增加声道的数量，例如从单声道到立体声或从立体声到环绕声。扩混通过复制、平移或更高级的信号处理技术来实现。与“downmixing”相反。</p>
 <h2 id="mute"><a href="#mute" class="headerlink" title="mute"></a>mute</h2><p>暂时强制将音量降为 0；独立于通常使用的音量控件。</p>
 <h2 id="volume"><a href="#volume" class="headerlink" title="volume"></a>volume</h2><p>响度，音频信号的主观强度。</p>
+<h2 id="interleaved"><a href="#interleaved" class="headerlink" title="interleaved"></a>interleaved</h2><p>一种数据布局安排，其中将在同一时间播放的每个通道的样本依次相继跟随。与“non-interleaved”相反<br>比如我们有Channel0的两个数据分别是0x11，0x22；channel1的两个数据分别是0x33，0x44，那么实际存储方式就是：<br>0x11 0x33 0x22 0x44</p>
+<h2 id="non-interleaved"><a href="#non-interleaved" class="headerlink" title="non-interleaved"></a>non-interleaved</h2><p>一种数据布局，其中单个通道的样本依次相继，另一个通道的样本位于另一个缓冲区或该缓冲区的另一部分。与“interleaved”相反。<br>比如我们有Channel0的两个数据分别是0x11，0x22；channel1的两个数据分别是0x33，0x44，那么实际存储方式就是：<br>0x11 0x22 0x33 0x44</p>
+<h2 id="ALSA"><a href="#ALSA" class="headerlink" title="ALSA"></a>ALSA</h2><p>The Advanced Linux Sound Architecture。Linux 的音频框架，对其他系统也有影响。要了解通用定义，请参阅 ALSA。在 Android 中，ALSA 指的是内核音频框架和驱动程序，而不是用户模式 API。另请参阅“tinyalsa”。</p>
+<h2 id="period"><a href="#period" class="headerlink" title="period"></a>period</h2><p>period是每个硬件中断之间的frame数。 poll（）将在每一个period返回一次。 period定义了更新状态的频率，通常通过中断的调用来进行。在某些硬件上，irq是根据计时器控制的。 在这种情况下，period定义了调用irq的计时器频率。</p>
+<h3 id="period-size"><a href="#period-size" class="headerlink" title="period_size"></a>period_size</h3><p>period_size定义frame个数。该术语与OSS上的“fragment size”一个意思。 在大多数的声音硬件上，ring-buffer(环形缓冲区)被分为几个部分，并且在每个块边界上发出一个irq。 period_size定义此块的大小。值得注意的是period_size是没有单位的。</p>
+<h3 id="period-count"><a href="#period-count" class="headerlink" title="period_count"></a>period_count</h3><p>代表有多少个periods<br>period_count = number_of_periods</p>
+<h3 id="period-bytes"><a href="#period-bytes" class="headerlink" title="period_bytes"></a>period_bytes</h3><p>period_bytes = period_size <em> bytes_per_frame<br>             = period_size </em> number_of_channels * bytes_per_sample</p>
+<h3 id="period-time"><a href="#period-time" class="headerlink" title="period_time"></a>period_time</h3><p>period_size的另一种表示方法。注意peroid_time与sample无关，不论是16bits还是32bits的sample都没有关系，它只与sample_rate有关。<br>period_time = period_size x time_per_frame<br>            = period_size x time_per_sample<br>            = period_size / sample_rate</p>
+<h3 id="buffer-size"><a href="#buffer-size" class="headerlink" title="buffer_size"></a>buffer_size</h3><p>buffer一般都是ring-buffer(环形缓冲区)。buffer大小必须始终大于一个period大小。 通常这是2<em>period_size，但是某些硬件可以为每个buffer执行8个period_size。buffer大小也可能不是period_size的整数倍。<br>举个例子，如果已设置为peroid_count=2，peroid_size=1024frames，则buffer_size=2</em>1024=2048frames。硬件将在每个buffer中中断2次。ALSA将努力保持buffer尽可能满。如果播放了第一段的1024frames，将发生一次中断，并将第三段1024frames转移到第一段1024frames所占用的空间，同时播放第二段1024frames。<br>buffer_size = number_of_periods * period_size</p>
+<h3 id="buffer-time"><a href="#buffer-time" class="headerlink" title="buffer_time"></a>buffer_time</h3><p>time_of_one_buffer = buffer_size_in_frames x time_for_one_frame<br>                = buffer_size x number_of_channels x time_for_one_sample<br>                = buffer_size x number_of_channels / sample_rate<br>                = period_count x Period Size x number of channels / sample_rate<br>                = period_count x number_of_channels x period_time</p>
 
     </article>
     <!-- license  -->
@@ -428,17 +440,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2019/04/08/Rootlees-Root/" title= "Rootless Root">
-                    <div class="nextTitle">Rootless Root</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2019/03/21/Thread/" title= "Thread">
-                    <div class="prevTitle">Thread</div>
+                <a href= "/2019/04/08/Rootlees-Root/" title= "无根的根">
+                    <div class="prevTitle">无根的根</div>
                 </a>
             
         </li>
@@ -550,7 +557,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PCM"><span class="toc-number">1.</span> <span class="toc-text">PCM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sample"><span class="toc-number">2.</span> <span class="toc-text">sample</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sample-rate-or-frame-rate"><span class="toc-number">3.</span> <span class="toc-text">sample rate or frame rate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#channel"><span class="toc-number">4.</span> <span class="toc-text">channel</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#frame"><span class="toc-number">5.</span> <span class="toc-text">frame</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gain"><span class="toc-number">6.</span> <span class="toc-text">gain</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hz"><span class="toc-number">7.</span> <span class="toc-text">Hz</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#latency"><span class="toc-number">8.</span> <span class="toc-text">latency</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xrun"><span class="toc-number">9.</span> <span class="toc-text">xrun</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#overrun"><span class="toc-number">9.1.</span> <span class="toc-text">overrun</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#underrun"><span class="toc-number">9.2.</span> <span class="toc-text">underrun</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#panning"><span class="toc-number">10.</span> <span class="toc-text">panning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ramp"><span class="toc-number">11.</span> <span class="toc-text">ramp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#downmixing"><span class="toc-number">12.</span> <span class="toc-text">downmixing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#upmixing"><span class="toc-number">13.</span> <span class="toc-text">upmixing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mute"><span class="toc-number">14.</span> <span class="toc-text">mute</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#volume"><span class="toc-number">15.</span> <span class="toc-text">volume</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PCM"><span class="toc-number">1.</span> <span class="toc-text">PCM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#channel"><span class="toc-number">2.</span> <span class="toc-text">channel</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sample"><span class="toc-number">3.</span> <span class="toc-text">sample</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sample-rate-or-frame-rate"><span class="toc-number">4.</span> <span class="toc-text">sample_rate or frame_rate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#frame"><span class="toc-number">5.</span> <span class="toc-text">frame</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gain"><span class="toc-number">6.</span> <span class="toc-text">gain</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hz"><span class="toc-number">7.</span> <span class="toc-text">Hz</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#latency"><span class="toc-number">8.</span> <span class="toc-text">latency</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#capture"><span class="toc-number">9.</span> <span class="toc-text">capture</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#playback"><span class="toc-number">10.</span> <span class="toc-text">playback</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xrun"><span class="toc-number">11.</span> <span class="toc-text">xrun</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#overrun"><span class="toc-number">11.1.</span> <span class="toc-text">overrun</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#underrun"><span class="toc-number">11.2.</span> <span class="toc-text">underrun</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#panning"><span class="toc-number">12.</span> <span class="toc-text">panning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ramp"><span class="toc-number">13.</span> <span class="toc-text">ramp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#downmixing"><span class="toc-number">14.</span> <span class="toc-text">downmixing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#upmixing"><span class="toc-number">15.</span> <span class="toc-text">upmixing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mute"><span class="toc-number">16.</span> <span class="toc-text">mute</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#volume"><span class="toc-number">17.</span> <span class="toc-text">volume</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#interleaved"><span class="toc-number">18.</span> <span class="toc-text">interleaved</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#non-interleaved"><span class="toc-number">19.</span> <span class="toc-text">non-interleaved</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ALSA"><span class="toc-number">20.</span> <span class="toc-text">ALSA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#period"><span class="toc-number">21.</span> <span class="toc-text">period</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#period-size"><span class="toc-number">21.1.</span> <span class="toc-text">period_size</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#period-count"><span class="toc-number">21.2.</span> <span class="toc-text">period_count</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#period-bytes"><span class="toc-number">21.3.</span> <span class="toc-text">period_bytes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#period-time"><span class="toc-number">21.4.</span> <span class="toc-text">period_time</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#buffer-size"><span class="toc-number">21.5.</span> <span class="toc-text">buffer_size</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#buffer-time"><span class="toc-number">21.6.</span> <span class="toc-text">buffer_time</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -715,17 +722,26 @@ top:50vh;
     
     
     
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/22</span><a class="archive-post-title" href= "/2020/03/22/Audio-Terminology/" >Audio常用术语的基本概念</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/08</span><a class="archive-post-title" href= "/2019/04/08/Rootlees-Root/" >Rootless Root</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">03/24</span><a class="archive-post-title" href= "/2019/03/24/Audio-Terminology/" >Audio Terminology</a>
+            <span class="archive-post-date">04/08</span><a class="archive-post-title" href= "/2019/04/08/Rootlees-Root/" >无根的根</a>
         </li>
     
     
@@ -744,12 +760,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/25</span><a class="archive-post-title" href= "/2018/11/25/Android-Command/" >Android Command</a>
+            <span class="archive-post-date">11/25</span><a class="archive-post-title" href= "/2018/11/25/Android-Command/" >Android常用命令</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/04</span><a class="archive-post-title" href= "/2018/11/04/Kondratiev-Wave/" >Kondratiev Wave</a>
+            <span class="archive-post-date">11/04</span><a class="archive-post-title" href= "/2018/11/04/Kondratiev-Wave/" >康波曲线</a>
         </li>
     
     
@@ -774,22 +790,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/13</span><a class="archive-post-title" href= "/2018/10/13/Control-GPIO/" >Control GPIO</a>
+            <span class="archive-post-date">10/13</span><a class="archive-post-title" href= "/2018/10/13/Control-GPIO/" >控制GPIO</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/13</span><a class="archive-post-title" href= "/2018/10/13/Print-BackTrace/" >Print BackTrace</a>
+            <span class="archive-post-date">10/13</span><a class="archive-post-title" href= "/2018/10/13/Print-BackTrace/" >打印BackTrace</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/06</span><a class="archive-post-title" href= "/2018/10/06/Linux-Command/" >Linux Command</a>
+            <span class="archive-post-date">10/06</span><a class="archive-post-title" href= "/2018/10/06/Linux-Command/" >Linux常用命令</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">07/21</span><a class="archive-post-title" href= "/2018/07/21/Git-Command/" >Git Command</a>
+            <span class="archive-post-date">07/21</span><a class="archive-post-title" href= "/2018/07/21/Git-Command/" >Git常用命令</a>
         </li>
     
     </div>
