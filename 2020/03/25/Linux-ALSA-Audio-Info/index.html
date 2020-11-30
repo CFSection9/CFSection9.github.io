@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="CFSection9">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="CFSection9">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="personal blog">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>Linux_ALSA_Audio_Info · undefined</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/favicon.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >CFSection9&#39;s Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Linux_ALSA_Audio_Info</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>CFSection9's Studio.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            Linux_ALSA_Audio_Info
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "linux">linux</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Audio">Audio</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">1.6k</span>阅读时长: <span class="post-count reading-time">7 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2020/03/25</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="dev-snd"><a href="#dev-snd" class="headerlink" title="/dev/snd"></a>/dev/snd</h1><p>这里放着应用程序可以使用的所有ALSA Hardware sound device file。这些设备文件供应用程序执行声音操作，例如录音，播放，更改音量，获取定时信息等。通常，设备文件的格式为aaaCxDy，aaa是服务名称，x是声卡编号，y是设备编号:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">ECHO_PC:~$ ls -l /dev/snd/</span><br><span class="line">total 0</span><br><span class="line">drwxr-xr-x  2 root root       80 3月   1 11:11 by-path</span><br><span class="line">crw-rw----+ 1 root audio 116,  2 3月   1 11:11 controlC0</span><br><span class="line">crw-rw----+ 1 root audio 116,  7 3月   1 11:11 controlC1</span><br><span class="line">crw-rw----+ 1 root audio 116,  6 3月   1 11:11 hwC0D0</span><br><span class="line">crw-rw----+ 1 root audio 116, 12 3月   1 11:11 hwC1D0</span><br><span class="line">crw-rw----+ 1 root audio 116,  4 3月   1 11:58 pcmC0D0c</span><br><span class="line">crw-rw----+ 1 root audio 116,  3 3月   1 11:58 pcmC0D0p</span><br><span class="line">crw-rw----+ 1 root audio 116,  5 3月   1 11:11 pcmC0D2c</span><br><span class="line">crw-rw----+ 1 root audio 116,  8 3月   1 11:58 pcmC1D3p</span><br><span class="line">crw-rw----+ 1 root audio 116,  9 3月   1 11:58 pcmC1D7p</span><br><span class="line">crw-rw----+ 1 root audio 116, 10 3月   1 11:58 pcmC1D8p</span><br><span class="line">crw-rw----+ 1 root audio 116, 11 3月   1 11:58 pcmC1D9p</span><br><span class="line">crw-rw----+ 1 root audio 116,  1 3月   1 11:11 seq</span><br><span class="line">crw-rw----+ 1 root audio 116, 33 3月   1 11:11 timer</span><br></pre></td></tr></table></figure></p>
+<h2 id="dev-snd-controlCx"><a href="#dev-snd-controlCx" class="headerlink" title="/dev/snd/controlCx"></a>/dev/snd/controlCx</h2><p>control devices (i.e. mixer, etc.)</p>
+<h2 id="dev-snd-pcmCxDyp-or-dev-snd-pcmCxDyc"><a href="#dev-snd-pcmCxDyp-or-dev-snd-pcmCxDyc" class="headerlink" title="/dev/snd/pcmCxDyp or /dev/snd/pcmCxDyc"></a>/dev/snd/pcmCxDyp or /dev/snd/pcmCxDyc</h2><p>如上面所讲，x代表sound_card_number，y代表device_number，p代表playback，c代表capture，同一声卡的不同device可以被独立地使用。PCM设备（内核level）可以简单地分为”输出(playback)”和”输入(capture)”两类。其中的方向是站在ALSA应用的角度而言,举几个例子:<br>pcmC0D0c代表：sound_card_number=0的device_number=0的cpature设备文件。<br>pcmC0D0p代表：sound_card_number=0的device_number=0的playback设备文件。<br>pcmC0D1p代表：sound_card_number=0的device_number=1的playback设备文件。<br>PCM输出设备接收从ALSA应用传入的数据，再到mixer(CTL设备)，然后路由至输出socket,外接的物理声卡设备(或者路由到别的PCM输入设备)<br>PCM输入设备将数据通过socket从物理声卡设备(或者经由mixer从别的PCM输出设备)读入，传入ALSA应用。</p>
+<h2 id="dev-snd-seq"><a href="#dev-snd-seq" class="headerlink" title="/dev/snd/seq"></a>/dev/snd/seq</h2><p>sequencer device</p>
+<h2 id="dev-snd-timer"><a href="#dev-snd-timer" class="headerlink" title="/dev/snd/timer"></a>/dev/snd/timer</h2><p>timer device</p>
+<h1 id="proc-asound"><a href="#proc-asound" class="headerlink" title="/proc/asound"></a>/proc/asound</h1><p>/proc信息一般用来记录kernel driver的运行状态。在asound下面暴露了ASLA driver所提供出来的重要信息：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line">ECHO_PC:~$ tree /proc/asound/</span><br><span class="line">/proc/asound/</span><br><span class="line">├── card0                        -&gt;声卡0的信息</span><br><span class="line">│   ├── codec<span class="comment">#0</span></span><br><span class="line">│   ├── id</span><br><span class="line">│   ├── pcm0c</span><br><span class="line">│   │   ├── info</span><br><span class="line">│   │   └── sub0</span><br><span class="line">│   │       ├── hw_params</span><br><span class="line">│   │       ├── info</span><br><span class="line">│   │       ├── prealloc</span><br><span class="line">│   │       ├── prealloc_max</span><br><span class="line">│   │       ├── status</span><br><span class="line">│   │       └── sw_params</span><br><span class="line">│   ├── pcm0p</span><br><span class="line">│   │   ├── info</span><br><span class="line">│   │   └── sub0</span><br><span class="line">│   │       ├── hw_params</span><br><span class="line">│   │       ├── info</span><br><span class="line">│   │       ├── prealloc</span><br><span class="line">│   │       ├── prealloc_max</span><br><span class="line">│   │       ├── status</span><br><span class="line">│   │       └── sw_params</span><br><span class="line">│   └── pcm2c</span><br><span class="line">│       ├── info</span><br><span class="line">│       └── sub0</span><br><span class="line">│           ├── hw_params</span><br><span class="line">│           ├── info</span><br><span class="line">│           ├── prealloc</span><br><span class="line">│           ├── prealloc_max</span><br><span class="line">│           ├── status</span><br><span class="line">│           └── sw_params</span><br><span class="line">├── card1                        -&gt;声卡1的信息</span><br><span class="line">│   ├── codec<span class="comment">#0</span></span><br><span class="line">│   ├── eld<span class="comment">#0.0</span></span><br><span class="line">│   ├── eld<span class="comment">#0.1</span></span><br><span class="line">│   ├── eld<span class="comment">#0.2</span></span><br><span class="line">│   ├── eld<span class="comment">#0.3</span></span><br><span class="line">│   ├── id</span><br><span class="line">│   ├── pcm3p</span><br><span class="line">│   │   ├── info</span><br><span class="line">│   │   └── sub0</span><br><span class="line">│   │       ├── hw_params</span><br><span class="line">│   │       ├── info</span><br><span class="line">│   │       ├── prealloc</span><br><span class="line">│   │       ├── prealloc_max</span><br><span class="line">│   │       ├── status</span><br><span class="line">│   │       └── sw_params</span><br><span class="line">│   ├── pcm7p</span><br><span class="line">│   │   ├── info</span><br><span class="line">│   │   └── sub0</span><br><span class="line">│   │       ├── hw_params</span><br><span class="line">│   │       ├── info</span><br><span class="line">│   │       ├── prealloc</span><br><span class="line">│   │       ├── prealloc_max</span><br><span class="line">│   │       ├── status</span><br><span class="line">│   │       └── sw_params</span><br><span class="line">│   ├── pcm8p</span><br><span class="line">│   │   ├── info</span><br><span class="line">│   │   └── sub0</span><br><span class="line">│   │       ├── hw_params</span><br><span class="line">│   │       ├── info</span><br><span class="line">│   │       ├── prealloc</span><br><span class="line">│   │       ├── prealloc_max</span><br><span class="line">│   │       ├── status</span><br><span class="line">│   │       └── sw_params</span><br><span class="line">│   └── pcm9p</span><br><span class="line">│       ├── info</span><br><span class="line">│       └── sub0</span><br><span class="line">│           ├── hw_params</span><br><span class="line">│           ├── info</span><br><span class="line">│           ├── prealloc</span><br><span class="line">│           ├── prealloc_max</span><br><span class="line">│           ├── status</span><br><span class="line">│           └── sw_params</span><br><span class="line">├── cards                        -&gt;保存了所有可用的声卡信息</span><br><span class="line">├── devices                      -&gt;保存了所有可用的设备信息</span><br><span class="line">├── hwdep                        -&gt;保存了所有可用的hwdep设备信息</span><br><span class="line">├── modules                      -&gt;</span><br><span class="line">├── NVidia -&gt; card1</span><br><span class="line">├── oss</span><br><span class="line">│   ├── devices                  -&gt;保存了所有可用的OSS设备信息</span><br><span class="line">│   └── sndstat</span><br><span class="line">├── PCH -&gt; card0</span><br><span class="line">├── pcm                          -&gt;保存了所有可用的pcm设备信息</span><br><span class="line">├── seq</span><br><span class="line">│   ├── clients</span><br><span class="line">│   ├── drivers</span><br><span class="line">│   ├── queues</span><br><span class="line">│   └── timer</span><br><span class="line">├── timers</span><br><span class="line">└── version                     -&gt;ALSA driver的版本和编译日期</span><br></pre></td></tr></table></figure></p>
+<p>ALSA世界中，物理的声卡设备由card, device, subdevice指定。</p>
+<h2 id="proc-asound-cards"><a href="#proc-asound-cards" class="headerlink" title="/proc/asound/cards"></a>/proc/asound/cards</h2><p>保存了所有注册的声卡信息。格式为:<br><code>index [the id string]: short and long descriptions.</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ECHO_PC:/proc/asound$ cat cards</span><br><span class="line"> 0 [PCH            ]: HDA-Intel - HDA Intel PCH</span><br><span class="line">                      HDA Intel PCH at 0x43ffff30000 irq 59</span><br><span class="line"> 1 [NVidia         ]: HDA-Intel - HDA NVidia</span><br><span class="line">                      HDA NVidia at 0xb8080000 irq 60</span><br></pre></td></tr></table></figure></p>
+<p>我们可以看到一张声卡设备它可以由字符串或者从0开始的整数表示。</p>
+<h2 id="proc-asound-devices"><a href="#proc-asound-devices" class="headerlink" title="/proc/asound/devices"></a>/proc/asound/devices</h2><p>保存了所有注册的设备信息，和/dev/snd/下面的设备是同一个内容。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ECHO_PC:/proc/asound$ cat devices</span><br><span class="line">  1:        : sequencer</span><br><span class="line">  2: [ 0]   : control</span><br><span class="line">  3: [ 0- 0]: digital audio playback</span><br><span class="line">  4: [ 0- 0]: digital audio capture</span><br><span class="line">  5: [ 0- 2]: digital audio capture</span><br><span class="line">  6: [ 0- 0]: hardware dependent</span><br><span class="line">  7: [ 1]   : control</span><br><span class="line">  8: [ 1- 3]: digital audio playback</span><br><span class="line">  9: [ 1- 7]: digital audio playback</span><br><span class="line"> 10: [ 1- 8]: digital audio playback</span><br><span class="line"> 11: [ 1- 9]: digital audio playback</span><br><span class="line"> 12: [ 1- 0]: hardware dependent</span><br><span class="line"> 33:        : timer</span><br></pre></td></tr></table></figure></p>
+<h2 id="proc-asound-hwdep"><a href="#proc-asound-hwdep" class="headerlink" title="/proc/asound/hwdep"></a>/proc/asound/hwdep</h2><p>保存了目前所有可以使用的hwdep设备信息，格式为:<br><code>&lt;card&gt;-&lt;device&gt;: &lt;name&gt;</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ECHO_PC:/proc/asound$ cat hwdep</span><br><span class="line">00-00: HDA Codec 0</span><br><span class="line">01-00: HDA Codec 0</span><br></pre></td></tr></table></figure></p>
+<h2 id="proc-asound-modules"><a href="#proc-asound-modules" class="headerlink" title="/proc/asound/modules"></a>/proc/asound/modules</h2><p>注意前面的编号，这里决定了modules的优先级。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dowang@cocmedia-ThinkStation-P720:/proc/asound$ cat modules</span><br><span class="line"> 0 snd_hda_intel</span><br><span class="line"> 1 snd_hda_intel</span><br></pre></td></tr></table></figure></p>
+<h2 id="proc-asound-pcm"><a href="#proc-asound-pcm" class="headerlink" title="/proc/asound/pcm"></a>/proc/asound/pcm</h2><p>保存了目前所有可以使用的pcm设备信息，格式为:<br><code>&lt;card&gt;-&lt;device&gt;: &lt;id&gt;: &lt;name&gt; : &lt;sub-streams&gt;</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dowang@cocmedia-ThinkStation-P720:/proc/asound$ cat pcm</span><br><span class="line">00-00: ALC662 rev3 Analog : ALC662 rev3 Analog : playback 1 : capture 1</span><br><span class="line">00-02: ALC662 rev3 Alt Analog : ALC662 rev3 Alt Analog : capture 1</span><br><span class="line">01-03: HDMI 0 : HDMI 0 : playback 1</span><br><span class="line">01-07: HDMI 1 : HDMI 1 : playback 1</span><br><span class="line">01-08: HDMI 2 : HDMI 2 : playback 1</span><br><span class="line">01-09: HDMI 3 : HDMI 3 : playback 1</span><br></pre></td></tr></table></figure></p>
+<h2 id="proc-asound-timers"><a href="#proc-asound-timers" class="headerlink" title="/proc/asound/timers"></a>/proc/asound/timers</h2><p>保存了目前所有可以使用的timer设备信息.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">dowang@cocmedia-ThinkStation-P720:/proc/asound$ cat timers</span><br><span class="line">G0: system timer : 4000.000us (10000000 ticks)</span><br><span class="line">P0-0-0: PCM playback 0-0-0 : SLAVE</span><br><span class="line">P0-0-1: PCM capture 0-0-1 : SLAVE</span><br><span class="line">P0-2-1: PCM capture 0-2-1 : SLAVE</span><br><span class="line">P1-3-0: PCM playback 1-3-0 : SLAVE</span><br><span class="line">P1-7-0: PCM playback 1-7-0 : SLAVE</span><br><span class="line">P1-8-0: PCM playback 1-8-0 : SLAVE</span><br><span class="line">P1-9-0: PCM playback 1-9-0 : SLAVE</span><br></pre></td></tr></table></figure></p>
+<h2 id="proc-asound-cardx-pcmxx-info"><a href="#proc-asound-cardx-pcmxx-info" class="headerlink" title="/proc/asound/cardx/pcmxx/info"></a>/proc/asound/cardx/pcmxx/info</h2><p>此PCM设备的一般信息.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">one@ubuntu:/proc/asound$ cat card0/pcm0c/info</span><br><span class="line">card: 0</span><br><span class="line">device: 0</span><br><span class="line">subdevice: 0</span><br><span class="line">stream: CAPTURE</span><br><span class="line">id: ALC662 rev3 Analog</span><br><span class="line">name: ALC662 rev3 Analog</span><br><span class="line">subname: subdevice <span class="comment">#0</span></span><br><span class="line">class: 0</span><br><span class="line">subclass: 0</span><br><span class="line">subdevices_count: 1</span><br><span class="line">subdevices_avail: 1</span><br></pre></td></tr></table></figure></p>
+<h2 id="proc-asound-cardx-pcmxx-sub0-sw-params"><a href="#proc-asound-cardx-pcmxx-sub0-sw-params" class="headerlink" title="/proc/asound/cardx/pcmxx/sub0/sw_params"></a>/proc/asound/cardx/pcmxx/sub0/sw_params</h2><p>为此子流设置的软件参数.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tstamp_mode: ENABLE</span><br><span class="line">period_step: 1</span><br><span class="line">avail_min: 1024</span><br><span class="line">start_threshold: 2048</span><br><span class="line">stop_threshold: 2048</span><br><span class="line">silence_threshold: 0</span><br><span class="line">silence_size: 0</span><br><span class="line">boundary: 4611686018427387904</span><br></pre></td></tr></table></figure></p>
+<p>软件参数可以在任意时刻修改，包括RUNNING状态.<br>avail_min:默认值一般为period size, 用于snd_pcm_wait, 当available的值大于avail_min时，snd_pcm_wait函数才会返回。<br>start threshold:PCM设备状态自动进入RUNNING的事件。注意：<br>只对readi/writei有效，对于 direct access 无效</p>
+<h2 id="proc-asound-cardx-pcmxx-sub0-hw-params"><a href="#proc-asound-cardx-pcmxx-sub0-hw-params" class="headerlink" title="/proc/asound/cardx/pcmxx/sub0/hw_params"></a>/proc/asound/cardx/pcmxx/sub0/hw_params</h2><p>为此子流设置的硬件参数.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">access: MMAP_INTERLEAVED</span><br><span class="line">format: S32_LE</span><br><span class="line">subformat: STD</span><br><span class="line">channels: 8</span><br><span class="line">rate: 48000 (48000/1)</span><br><span class="line">period_size: 1024</span><br><span class="line">buffer_size: 2048</span><br></pre></td></tr></table></figure></p>
+<p>ALSA PCM设备对于硬件参数，使用了一种”逐步限制”的机制(refinement system) - snd_pcm_hw_params_t. 应用程序在一开始设定所有支持的HW参数空间，然后通过设置其中的某几个参数为定值，直到其他参数都被限定为止。最后，将设定好了的参数空间install给该设备(snd_pcm_hw_params)。之后，HW参数就不得再改变了。</p>
+<h2 id="proc-asound-cardx-pcmxx-sub0-status"><a href="#proc-asound-cardx-pcmxx-sub0-status" class="headerlink" title="/proc/asound/cardx/pcmxx/sub0/status"></a>/proc/asound/cardx/pcmxx/sub0/status</h2><p>该PCM子流的当前状态.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">state: RUNNING</span><br><span class="line">owner_pid   : 2882          -&gt;占用当前pcm设备的pid号，可以用 <span class="string">"ps -A｜grep 2282"</span>来查看进程的名字。</span><br><span class="line">trigger_time: 4.894258624   -&gt;It is the kernel time when the pcm device is opened</span><br><span class="line">tstamp      : 107.766229168 -&gt;is the kernel time when cat this status</span><br><span class="line">delay       : 96</span><br><span class="line">avail       : 96</span><br><span class="line">avail_max   : 96</span><br><span class="line">-----</span><br><span class="line">hw_ptr      : 4937824      -&gt;If it is a playback node, it is a hardware <span class="built_in">read</span> point.</span><br><span class="line">appl_ptr    : 4937728      -&gt;If it is a playback node, it is a application write point.</span><br></pre></td></tr></table></figure></p>
+<p>PCM的state状态机如下图示:</p>
+
+    </article>
+    <!-- license  -->
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2020/09/06/RaspberryPi-soft-router-md/" title= "RaspberryPi做为单臂路由实现KXSW">
+                    <div class="nextTitle">RaspberryPi做为单臂路由实现KXSW</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2020/03/22/Audio-Terminology/" title= "Audio常用术语的基本概念">
+                    <div class="prevTitle">Audio常用术语的基本概念</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:wangdq1990@gmail.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/CFSection9" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#dev-snd"><span class="toc-number">1.</span> <span class="toc-text">/dev/snd</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#dev-snd-controlCx"><span class="toc-number">1.1.</span> <span class="toc-text">/dev/snd/controlCx</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dev-snd-pcmCxDyp-or-dev-snd-pcmCxDyc"><span class="toc-number">1.2.</span> <span class="toc-text">/dev/snd/pcmCxDyp or /dev/snd/pcmCxDyc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dev-snd-seq"><span class="toc-number">1.3.</span> <span class="toc-text">/dev/snd/seq</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dev-snd-timer"><span class="toc-number">1.4.</span> <span class="toc-text">/dev/snd/timer</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#proc-asound"><span class="toc-number">2.</span> <span class="toc-text">/proc/asound</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#proc-asound-cards"><span class="toc-number">2.1.</span> <span class="toc-text">/proc/asound/cards</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#proc-asound-devices"><span class="toc-number">2.2.</span> <span class="toc-text">/proc/asound/devices</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#proc-asound-hwdep"><span class="toc-number">2.3.</span> <span class="toc-text">/proc/asound/hwdep</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#proc-asound-modules"><span class="toc-number">2.4.</span> <span class="toc-text">/proc/asound/modules</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#proc-asound-pcm"><span class="toc-number">2.5.</span> <span class="toc-text">/proc/asound/pcm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#proc-asound-timers"><span class="toc-number">2.6.</span> <span class="toc-text">/proc/asound/timers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#proc-asound-cardx-pcmxx-info"><span class="toc-number">2.7.</span> <span class="toc-text">/proc/asound/cardx/pcmxx/info</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#proc-asound-cardx-pcmxx-sub0-sw-params"><span class="toc-number">2.8.</span> <span class="toc-text">/proc/asound/cardx/pcmxx/sub0/sw_params</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#proc-asound-cardx-pcmxx-sub0-hw-params"><span class="toc-number">2.9.</span> <span class="toc-text">/proc/asound/cardx/pcmxx/sub0/hw_params</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#proc-asound-cardx-pcmxx-sub0-status"><span class="toc-number">2.10.</span> <span class="toc-text">/proc/asound/cardx/pcmxx/sub0/status</span></a></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 15
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/06</span><a class="archive-post-title" href= "/2020/09/06/RaspberryPi-soft-router-md/" >RaspberryPi做为单臂路由实现KXSW</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href= "/2020/03/25/Linux-ALSA-Audio-Info/" >Linux_ALSA_Audio_Info</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/22</span><a class="archive-post-title" href= "/2020/03/22/Audio-Terminology/" >Audio常用术语的基本概念</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/08</span><a class="archive-post-title" href= "/2019/04/08/Rootlees-Root/" >无根的根</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/21</span><a class="archive-post-title" href= "/2019/03/21/Thread/" >Thread</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/25</span><a class="archive-post-title" href= "/2018/11/25/Android-Command/" >Android常用命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/04</span><a class="archive-post-title" href= "/2018/11/04/Kondratiev-Wave/" >康波曲线</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/28</span><a class="archive-post-title" href= "/2018/10/28/Wake-Lock/" >WakeLock</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/2018/10/21/gdb/" >GDB</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/2018/10/21/cec/" >CEC(Consumer Electronics Control)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/2018/10/21/Translate-Kernel-dump-stack/" >Translate Kernel dump_stack()</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/13</span><a class="archive-post-title" href= "/2018/10/13/Control-GPIO/" >控制GPIO</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/13</span><a class="archive-post-title" href= "/2018/10/13/Print-BackTrace/" >打印BackTrace</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/06</span><a class="archive-post-title" href= "/2018/10/06/Linux-Command/" >Linux常用命令</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/21</span><a class="archive-post-title" href= "/2018/07/21/Git-Command/" >Git常用命令</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
+    
+        <span class="sidebar-tag-name" data-tags="linux"><span class="iconfont-archer">&#xe606;</span>linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="Audio"><span class="iconfont-archer">&#xe606;</span>Audio</span>
+    
+        <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
+    
+        <span class="sidebar-tag-name" data-tags="Economics"><span class="iconfont-archer">&#xe606;</span>Economics</span>
+    
+        <span class="sidebar-tag-name" data-tags="Input-Output"><span class="iconfont-archer">&#xe606;</span>Input-Output</span>
+    
+        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="Gist"><span class="iconfont-archer">&#xe606;</span>Gist</span>
+    
+        <span class="sidebar-tag-name" data-tags="Debug"><span class="iconfont-archer">&#xe606;</span>Debug</span>
+    
+        <span class="sidebar-tag-name" data-tags="RaspberryPi"><span class="iconfont-archer">&#xe606;</span>RaspberryPi</span>
+    
+        <span class="sidebar-tag-name" data-tags="network"><span class="iconfont-archer">&#xe606;</span>network</span>
+    
+        <span class="sidebar-tag-name" data-tags="openwrt"><span class="iconfont-archer">&#xe606;</span>openwrt</span>
+    
+        <span class="sidebar-tag-name" data-tags="android"><span class="iconfont-archer">&#xe606;</span>android</span>
+    
+        <span class="sidebar-tag-name" data-tags="OS"><span class="iconfont-archer">&#xe606;</span>OS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Zen"><span class="iconfont-archer">&#xe606;</span>Zen</span>
+    
+        <span class="sidebar-tag-name" data-tags="kernel"><span class="iconfont-archer">&#xe606;</span>kernel</span>
+    
+        <span class="sidebar-tag-name" data-tags="PowerManager"><span class="iconfont-archer">&#xe606;</span>PowerManager</span>
+    
+        <span class="sidebar-tag-name" data-tags="HDMI"><span class="iconfont-archer">&#xe606;</span>HDMI</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "CFSection9"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+

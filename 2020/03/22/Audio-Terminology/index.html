@@ -427,18 +427,22 @@ height:50vh;
 <h2 id="ALSA"><a href="#ALSA" class="headerlink" title="ALSA"></a>ALSA</h2><p>The Advanced Linux Sound Architecture。Linux 的音频框架，对其他系统也有影响。要了解通用定义，请参阅 ALSA。在 Android 中，ALSA 指的是内核音频框架和驱动程序，而不是用户模式 API。另请参阅“tinyalsa”。</p>
 <h2 id="period"><a href="#period" class="headerlink" title="period"></a>period</h2><p>period是每个硬件中断之间的frame数。 poll（）将在每一个period返回一次。 period定义了更新状态的频率，通常通过中断的调用来进行。在某些硬件上，irq是根据计时器控制的。 在这种情况下，period定义了调用irq的计时器频率。</p>
 <h3 id="period-size"><a href="#period-size" class="headerlink" title="period_size"></a>period_size</h3><p>period_size定义frame个数。该术语与OSS上的“fragment size”一个意思。 在大多数的声音硬件上，ring-buffer(环形缓冲区)被分为几个部分，并且在每个块边界上发出一个irq。 period_size定义此块的大小。值得注意的是period_size是没有单位的。</p>
-<h3 id="period-count"><a href="#period-count" class="headerlink" title="period_count"></a>period_count</h3><p>代表有多少个periods<br>period_count = number_of_periods</p>
-<h3 id="period-bytes"><a href="#period-bytes" class="headerlink" title="period_bytes"></a>period_bytes</h3><p>period_bytes = period_size <em> bytes_per_frame<br>             = period_size </em> number_of_channels * bytes_per_sample</p>
-<h3 id="period-time"><a href="#period-time" class="headerlink" title="period_time"></a>period_time</h3><p>period_size的另一种表示方法。注意peroid_time与sample无关，不论是16bits还是32bits的sample都没有关系，它只与sample_rate有关。<br>period_time = period_size x time_per_frame<br>            = period_size x time_per_sample<br>            = period_size / sample_rate</p>
-<h3 id="buffer-size"><a href="#buffer-size" class="headerlink" title="buffer_size"></a>buffer_size</h3><p>buffer一般都是ring-buffer(环形缓冲区)。buffer大小必须始终大于一个period大小。 通常这是2<em>period_size，但是某些硬件可以为每个buffer执行8个period_size。buffer大小也可能不是period_size的整数倍。<br>举个例子，如果已设置为peroid_count=2，peroid_size=1024frames，则buffer_size=2</em>1024=2048frames。硬件将在每个buffer中中断2次。ALSA将努力保持buffer尽可能满。如果播放了第一段的1024frames，将发生一次中断，并将第三段1024frames转移到第一段1024frames所占用的空间，同时播放第二段1024frames。<br>buffer_size = number_of_periods * period_size</p>
-<h3 id="buffer-time"><a href="#buffer-time" class="headerlink" title="buffer_time"></a>buffer_time</h3><p>time_of_one_buffer = buffer_size_in_frames x time_for_one_frame<br>                = buffer_size x number_of_channels x time_for_one_sample<br>                = buffer_size x number_of_channels / sample_rate<br>                = period_count x Period Size x number of channels / sample_rate<br>                = period_count x number_of_channels x period_time</p>
-
+<h3 id="period-count"><a href="#period-count" class="headerlink" title="period_count"></a>period_count</h3><p>代表有多少个periods.<br><code>period_count = number_of_periods</code></p>
+<h3 id="period-bytes"><a href="#period-bytes" class="headerlink" title="period_bytes"></a>period_bytes</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">period_bytes = period_size * bytes_per_frame</span><br><span class="line">		     = period_size * number_of_channels * bytes_per_sample</span><br></pre></td></tr></table></figure>
+<h3 id="period-time"><a href="#period-time" class="headerlink" title="period_time"></a>period_time</h3><p>period_size的另一种表示方法。注意peroid_time与sample无关，不论是16bits还是32bits的sample都没有关系，它只与sample_rate有关。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">period_time = period_size x time_per_frame</span><br><span class="line">		    = period_size x time_per_sample</span><br><span class="line">		    = period_size / sample_rate</span><br></pre></td></tr></table></figure></p>
+<h3 id="buffer-size"><a href="#buffer-size" class="headerlink" title="buffer_size"></a>buffer_size</h3><p>buffer一般都是ring-buffer(环形缓冲区)。buffer大小必须始终大于一个period大小。 通常这是2<em>period_size，但是某些硬件可以为每个buffer执行8个period_size。buffer大小也可能不是period_size的整数倍。<br>举个例子，如果已设置为peroid_count=2，peroid_size=1024frames，则buffer_size=2</em>1024=2048frames。硬件将在每个buffer中中断2次。ALSA将努力保持buffer尽可能满。如果播放了第一段的1024frames，将发生一次中断，并将第三段1024frames转移到第一段1024frames所占用的空间，同时播放第二段1024frames。<br><code>buffer_size = number_of_periods * period_size</code></p>
+<h3 id="buffer-time"><a href="#buffer-time" class="headerlink" title="buffer_time"></a>buffer_time</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">time_of_one_buffer = buffer_size_in_frames x time_for_one_frame</span><br><span class="line">				   = buffer_size x number_of_channels x time_for_one_sample</span><br><span class="line">				   = buffer_size x number_of_channels / sample_rate</span><br><span class="line">				   = period_count x Period Size x number of channels / sample_rate</span><br><span class="line">				   = period_count x number_of_channels x period_time</span><br></pre></td></tr></table></figure>
     </article>
     <!-- license  -->
     
     <!-- paginator  -->
     <ul class="post-paginator">
         <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2020/03/25/Linux-ALSA-Audio-Info/" title= "Linux_ALSA_Audio_Info">
+                    <div class="nextTitle">Linux_ALSA_Audio_Info</div>
+                </a>
             
         </li>
         <li class="previous">
@@ -709,9 +713,57 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 13
+        Total : 15
         </div>
         <!-- search  -->
         
@@ -724,6 +776,16 @@ top:50vh;
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/06</span><a class="archive-post-title" href= "/2020/09/06/RaspberryPi-soft-router-md/" >RaspberryPi做为单臂路由实现KXSW</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/25</span><a class="archive-post-title" href= "/2020/03/25/Linux-ALSA-Audio-Info/" >Linux_ALSA_Audio_Info</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -775,12 +837,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/2018/10/21/cec/" >CEC(Consumer Electronics Control)</a>
+            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/2018/10/21/gdb/" >GDB</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/2018/10/21/gdb/" >GDB</a>
+            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/2018/10/21/cec/" >CEC(Consumer Electronics Control)</a>
         </li>
     
     
@@ -813,39 +875,41 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
-    
-        <span class="sidebar-tag-name" data-tags="Economics"><span class="iconfont-archer">&#xe606;</span>Economics</span>
-    
-        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
-    
-        <span class="sidebar-tag-name" data-tags="Input-Output"><span class="iconfont-archer">&#xe606;</span>Input-Output</span>
-    
-        <span class="sidebar-tag-name" data-tags="Gist"><span class="iconfont-archer">&#xe606;</span>Gist</span>
-    
         <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
     
         <span class="sidebar-tag-name" data-tags="linux"><span class="iconfont-archer">&#xe606;</span>linux</span>
     
         <span class="sidebar-tag-name" data-tags="Audio"><span class="iconfont-archer">&#xe606;</span>Audio</span>
     
+        <span class="sidebar-tag-name" data-tags="Git"><span class="iconfont-archer">&#xe606;</span>Git</span>
+    
+        <span class="sidebar-tag-name" data-tags="Economics"><span class="iconfont-archer">&#xe606;</span>Economics</span>
+    
+        <span class="sidebar-tag-name" data-tags="Input-Output"><span class="iconfont-archer">&#xe606;</span>Input-Output</span>
+    
+        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="Gist"><span class="iconfont-archer">&#xe606;</span>Gist</span>
+    
         <span class="sidebar-tag-name" data-tags="Debug"><span class="iconfont-archer">&#xe606;</span>Debug</span>
+    
+        <span class="sidebar-tag-name" data-tags="RaspberryPi"><span class="iconfont-archer">&#xe606;</span>RaspberryPi</span>
+    
+        <span class="sidebar-tag-name" data-tags="network"><span class="iconfont-archer">&#xe606;</span>network</span>
+    
+        <span class="sidebar-tag-name" data-tags="openwrt"><span class="iconfont-archer">&#xe606;</span>openwrt</span>
     
         <span class="sidebar-tag-name" data-tags="android"><span class="iconfont-archer">&#xe606;</span>android</span>
     
         <span class="sidebar-tag-name" data-tags="OS"><span class="iconfont-archer">&#xe606;</span>OS</span>
     
-        <span class="sidebar-tag-name" data-tags="HDMI"><span class="iconfont-archer">&#xe606;</span>HDMI</span>
+        <span class="sidebar-tag-name" data-tags="Zen"><span class="iconfont-archer">&#xe606;</span>Zen</span>
     
         <span class="sidebar-tag-name" data-tags="kernel"><span class="iconfont-archer">&#xe606;</span>kernel</span>
     
         <span class="sidebar-tag-name" data-tags="PowerManager"><span class="iconfont-archer">&#xe606;</span>PowerManager</span>
     
-        <span class="sidebar-tag-name" data-tags="unix"><span class="iconfont-archer">&#xe606;</span>unix</span>
-    
-        <span class="sidebar-tag-name" data-tags="Unix"><span class="iconfont-archer">&#xe606;</span>Unix</span>
-    
-        <span class="sidebar-tag-name" data-tags="Zen"><span class="iconfont-archer">&#xe606;</span>Zen</span>
+        <span class="sidebar-tag-name" data-tags="HDMI"><span class="iconfont-archer">&#xe606;</span>HDMI</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>

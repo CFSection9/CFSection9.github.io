@@ -22,7 +22,7 @@
     <meta name="description" content="personal blog">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title></title>
+    <title>RaspberryPi做为单臂路由实现KXSW · undefined</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -77,6 +77,8 @@
 
     <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
     <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
     
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
@@ -201,14 +203,23 @@
 </head>
 
     
-        <body class="home-body">
+        <body class="post-body">
     
     
-<header class="header index-header">
+<header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >CFSection9&#39;s Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">RaspberryPi做为单臂路由实现KXSW</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>CFSection9's Studio.</a>
 </header>
@@ -227,17 +238,17 @@ height:50vh;
     <!-- 主页  -->
     
     
-    <!-- 文章页  -->
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/index-bg.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            CFSection9's Studio.
-            <!-- 文章页  -->
+            RaspberryPi做为单臂路由实现KXSW
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
@@ -245,12 +256,53 @@ height:50vh;
             <!-- 主页副标题  -->
             
             
-                it's better to burn out than to fade away
-            
-            <!-- 文章页  -->
+            <!-- 404 -->
             
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "RaspberryPi">RaspberryPi</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "network">network</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "openwrt">openwrt</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">877</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2020/09/06</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -351,395 +403,51 @@ height:50vh;
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/09/06/RaspberryPi-soft-router-md/" >
-            
-                <span>RaspberryPi做为单臂路由实现KXSW</span>
-        </a>
-        <div class="abstract-content">
-            Setup a RaspberryPi4 with openwrt
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/09/06</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "RaspberryPi">RaspberryPi</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "network">network</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "openwrt">openwrt</a>
-    
-</div>
-            
-        </div>
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>之前一直希望可以实现全家kxsw，无奈都是租的房子不想太折腾。不过最近搬了新家，于是借着这几天平时晚上的时间把全家kxsw实现了！其实有很多种方法，最常见的就是手机安装小火箭等软件，再找机场购买服务。但是对于家里N台设备做在路由器端是非常方便的，这样家里所有人只要连上wifi就可以直接使用，出问题也只用调试路由器。</p>
+<h1 id="为什么选树莓派做软路由"><a href="#为什么选树莓派做软路由" class="headerlink" title="为什么选树莓派做软路由"></a>为什么选树莓派做软路由</h1><p>关于openwrt的的使用我发现主要可以分成两类，一类是拿intel比较古老的x86架构CPU来做软路由，还有一类是拿N1/Napi等盒子来做软路由。首先我觉得第一类大部分都是寨厂组装的，可靠性不高，而且x86架构功耗太高，最主要的是我家宽带只有300Mbps，杀鸡焉用牛刀就pass了。对于第二类我是怕这些盒子不安全，毕竟都是国内厂商做的，万一里面放什么不知道的binary或者library岂不是很危险(怕不安全还买什么机场=。=)也得pass。<br>所以，看了一圈我还是决定拿树莓派4来做单臂路由，接xiaomi AX6做AP。</p>
+<h1 id="网络拓扑图"><a href="#网络拓扑图" class="headerlink" title="网络拓扑图"></a>网络拓扑图</h1><p><img src="/images/network_topology.jpg" alt=""></p>
+<h1 id="光猫-调制解调器-配置"><a href="#光猫-调制解调器-配置" class="headerlink" title="光猫(调制解调器)配置"></a>光猫(调制解调器)配置</h1><p>我家办的是联通的宽带，现在宽带运营商送的光猫都是三合一：调制解调器+路由器+wifi，感觉对我们这种爱折腾的人来说完全是多余，我只要调制解调器就够了。所以很简单，把网线一头插在运营商光猫的LAN口(联通只有接口1才是千兆口，不过看在便宜的份上还是忍了)一头插在PC上，接着用浏览器打开<code>192.168.1.1</code>，用密码<code>CUAdmin</code>登陆联通的光猫，设置桥接模式并关闭DHCP：<br><img src="/images/CU_model_setting.png" alt=""></p>
+<h1 id="树莓派OpenWRT配置"><a href="#树莓派OpenWRT配置" class="headerlink" title="树莓派OpenWRT配置"></a>树莓派OpenWRT配置</h1><p>树莓派只有一个网口，一般情况大家都是把它拿来做WAN，然后再外接一个USB网口做LAN。不过好在树莓派4的网口支持千兆全双工，那么我们就可以把这一个网口即做WAN又做LAN来使用。</p>
+<h2 id="1-首先我们先创建一个WAN口："><a href="#1-首先我们先创建一个WAN口：" class="headerlink" title="1.首先我们先创建一个WAN口："></a>1.首先我们先创建一个WAN口：</h2><p>网络-&gt;接口-&gt;添加新接口<br>新接口的名称输入WAN，协议选择PPPoE，并勾选以太网适配器“eth0”，点击提交。<br>接下来我们选择修改WAN口的配置：<br>基本设置里填上拨号上网的用户名/密码。<br>防火墙设置里创建WAN</p>
+<h2 id="2-接着我们再创建一个LAN口"><a href="#2-接着我们再创建一个LAN口" class="headerlink" title="2.接着我们再创建一个LAN口:"></a>2.接着我们再创建一个LAN口:</h2><p>网络-&gt;接口-&gt;添加新接口<br>新接口的名称输入LAN，协议选择静态地址，并勾选以太网适配器“eth0”，点击提交。<br>接下来我们选择修改LAN口的配置：<br>基本设置里IPv4地址<code>192.168.1.2</code>,IPv4子网掩码<code>255.255.255.0</code>,IPv4网关<code>192.168.1.2</code><br>物理设置里不要勾选桥接。<br>高级设置里勾选动态DHCP，注意整个网络里只能有一个DHCP服务器，我们在LAN口里配置上DHCP服务器；勾选强制链路，以防其他DHCP服务器启动。<br>防火墙设置里创建LAN</p>
+<h1 id="无线AP配置"><a href="#无线AP配置" class="headerlink" title="无线AP配置"></a>无线AP配置</h1><p>关闭DHCP，并配置其局域网IP为<code>192.168.1.3</code></p>
+<h1 id="最终实际效果"><a href="#最终实际效果" class="headerlink" title="最终实际效果"></a>最终实际效果</h1><p>测下来平均100Mbps，还是可以的啦：<br><img src="/images/netspeed_snapshot.jpg" alt=""></p>
+
     </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/03/25/Linux-ALSA-Audio-Info/" >
-            
-                <span>Linux_ALSA_Audio_Info</span>
-        </a>
-        <div class="abstract-content">
-            Linux ALSA audio info Introduction
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/03/25</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "linux">linux</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Audio">Audio</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2020/03/22/Audio-Terminology/" >
-            
-                <span>Audio常用术语的基本概念</span>
-        </a>
-        <div class="abstract-content">
-            Audio terminology intruducion
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/03/22</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "linux">linux</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Audio">Audio</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/04/08/Rootlees-Root/" >
-            
-                <span>无根的根</span>
-        </a>
-        <div class="abstract-content">
-            The Unix Koans of Master Foo
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/08</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "OS">OS</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Zen">Zen</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2019/03/21/Thread/" >
-            
-                <span>Thread</span>
-        </a>
-        <div class="abstract-content">
-            Thread intruducion
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/21</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "linux">linux</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "android">android</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "OS">OS</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/25/Android-Command/" >
-            
-                <span>Android常用命令</span>
-        </a>
-        <div class="abstract-content">
-            Android frequently used command
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/25</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/11/04/Kondratiev-Wave/" >
-            
-                <span>康波曲线</span>
-        </a>
-        <div class="abstract-content">
-            Kondratiev Wave Introduction
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/11/04</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Economics">Economics</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/10/28/Wake-Lock/" >
-            
-                <span>WakeLock</span>
-        </a>
-        <div class="abstract-content">
-            Android WakeLock Introduction
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/28</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "PowerManager">PowerManager</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/10/21/gdb/" >
-            
-                <span>GDB</span>
-        </a>
-        <div class="abstract-content">
-            GDB debug Introduction
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/21</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Debug">Debug</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href = "/2018/10/21/cec/" >
-            
-                <span>CEC(Consumer Electronics Control)</span>
-        </a>
-        <div class="abstract-content">
-            CEC Introduction
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/10/21</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Input-Output">Input-Output</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "HDMI">HDMI</a>
-    
-</div>
-            
-        </div>
-    </article>
+    <!-- license  -->
     
     <!-- paginator  -->
-    
-    <nav class="page-nav">
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">NEXT &#62;</a>
-    </nav>
-    
-</main>
-            <!-- profile -->
+    <ul class="post-paginator">
+        <li class="next">
             
-            <div class="profile">
-    <img class="profile-avatar" alt="avatar" src= /avatar/AC.jpg >
-    <div class="profile-name">CFSection9</div>
-    
-    <div class="profile-signature">
-        Learning soft skills
-    </div>
-    
-    
-    <div class="profile-social">
-        
-    
-        
+        </li>
+        <li class="previous">
             
-                <a href="mailto:wangdq1990@gmail.com" class="iconfont-archer email" title=email ></a>
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2020/03/25/Linux-ALSA-Audio-Info/" title= "Linux_ALSA_Audio_Info">
+                    <div class="prevTitle">Linux_ALSA_Audio_Info</div>
+                </a>
             
-        
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
-        
-            
-                <a href="//github.com/CFSection9" class="iconfont-archer github" target="_blank" title=github></a>
-            
-        
     
-        
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
     
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
     
 
-    </div>
-    
-    
-    
-        <div class="about-me">
-            <a href = "/about" >ABOUT ME</a>
-        </div>
-    
-</div>
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
             
         </div>
         <footer class="footer footer-unloaded">
@@ -815,6 +523,24 @@ height:50vh;
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#为什么选树莓派做软路由"><span class="toc-number">2.</span> <span class="toc-text">为什么选树莓派做软路由</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网络拓扑图"><span class="toc-number">3.</span> <span class="toc-text">网络拓扑图</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#光猫-调制解调器-配置"><span class="toc-number">4.</span> <span class="toc-text">光猫(调制解调器)配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#树莓派OpenWRT配置"><span class="toc-number">5.</span> <span class="toc-text">树莓派OpenWRT配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-首先我们先创建一个WAN口："><span class="toc-number">5.1.</span> <span class="toc-text">1.首先我们先创建一个WAN口：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-接着我们再创建一个LAN口"><span class="toc-number">5.2.</span> <span class="toc-text">2.接着我们再创建一个LAN口:</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#无线AP配置"><span class="toc-number">6.</span> <span class="toc-text">无线AP配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#最终实际效果"><span class="toc-number">7.</span> <span class="toc-text">最终实际效果</span></a></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -1228,6 +954,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
