@@ -413,7 +413,7 @@ height:50vh;
 <h2 id="1-首先我们先创建一个WAN口："><a href="#1-首先我们先创建一个WAN口：" class="headerlink" title="1.首先我们先创建一个WAN口："></a>1.首先我们先创建一个WAN口：</h2><p>网络-&gt;接口-&gt;添加新接口<br>新接口的名称输入WAN，协议选择PPPoE，并勾选以太网适配器“eth0”，点击提交。<br>接下来我们选择修改WAN口的配置：<br>基本设置里填上拨号上网的用户名/密码。<br>防火墙设置里创建WAN</p>
 <h2 id="2-接着我们再创建一个LAN口"><a href="#2-接着我们再创建一个LAN口" class="headerlink" title="2.接着我们再创建一个LAN口:"></a>2.接着我们再创建一个LAN口:</h2><p>网络-&gt;接口-&gt;添加新接口<br>新接口的名称输入LAN，协议选择静态地址，并勾选以太网适配器“eth0”，点击提交。<br>接下来我们选择修改LAN口的配置：<br>基本设置里IPv4地址<code>192.168.1.2</code>,IPv4子网掩码<code>255.255.255.0</code>,IPv4网关<code>192.168.1.2</code><br>物理设置里不要勾选桥接。<br>高级设置里勾选动态DHCP，注意整个网络里只能有一个DHCP服务器，我们在LAN口里配置上DHCP服务器；勾选强制链路，以防其他DHCP服务器启动。<br>防火墙设置里创建LAN</p>
 <h1 id="无线AP配置"><a href="#无线AP配置" class="headerlink" title="无线AP配置"></a>无线AP配置</h1><p>关闭DHCP，并配置其局域网IP为<code>192.168.1.3</code></p>
-<h1 id="最终实际效果"><a href="#最终实际效果" class="headerlink" title="最终实际效果"></a>最终实际效果</h1><p>测下来平均100Mbps，还是可以的啦：<br><img src="/images/netspeed_snapshot.jpg" alt=""></p>
+<h1 id="最终实际效果"><a href="#最终实际效果" class="headerlink" title="最终实际效果"></a>最终实际效果</h1><p>测下来平均100Mbps，还是可以的啦：<br><img src="/images/netspeed_snapshot.png" alt=""></p>
 
     </article>
     <!-- license  -->
